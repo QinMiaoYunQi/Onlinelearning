@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javen.dao.UserDao" >
+
+    <select id="getUser" resultMap="UserIdCard">
+         select user.* ,phone.phoneNumber from user inner join phone on user.id = phone.UserId
+    </select>
+    <resultMap  id ="UserIdCard" type="com.javen.model.User">
+        <result property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <result property="password" column="password"/>
+        <result property="phoneNumber" column="phoneNumber"/>
+    </resultMap>
+
+</mapper>
