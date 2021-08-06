@@ -1,49 +1,52 @@
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Qingcheng</title>
-<link rel="stylesheet" href="sources/css/mystyle.css" />
-<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-<script src="sources/js/jquery.js"></script>
+	<meta charset="UTF-8">
+	<title>登录界面</title>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="sources/js/cookie.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="sources/css/index.css">
 </head>
-<body class="body_bg">
-	<div class="whole">
-		<div class="title">Please Enter Your New Password</div>
-		<form id="form1" action="" method="get" class="form_box">
-			<div class="input_tit">Your Account</div>
-			<div class="input_box">
-				<input class="input_self" type="text" name="userName" id="userName"/>
-			</div>
-			<div class='blank_30'></div>
-			<div class="input_tit">New Password</div>
-			<div class="input_box">
-				<input class="input_self" type="text" name="password" id="password" />
-			</div>
-			<div class="finish_box">
-				<input class="finish_btn" value="登录" type="button" id="finish" name="finish" onclick="get()"/>
-			</div>
-		</form>
-	</div>
+<body class="bg">
+<div class="box">
+	<h3>Please Enter Your Info</h3>
+	<form class="myForm1">
+		<input type="radio" name="flag" value="1" checked="checked"/>管理员
+		<input type="radio" name="flag" value="0" checked="checked"/>老师
+		<input type="radio" name="flag" value="2" checked="checked"/>学生
+	</form>
+	<form class="myForm">
+		<h4>Your Account</h4>
+		<input type="text" id="username"/>
+		<h4>Your Password</h4>
+		<input type="text" id="password"/>
+		<input class="AAA" type="button" value="Finish" onclick="get()"/>
+	</form>
+
+</div>
 </body>
 <script>
 	function get(){
 		// ajax ---》 利用ajax进行数据提交  // ++ http协议
-		var url = "http://localhost:8080/maven02/login/login";
+		var url = "http://localhost:8080/BookMall/test/login";
 		var data = {
-			"userName":$("#userName").val(),
-			"password":$("#password").val()
+			"username":$("#username").val(),
+			"password":$("#password").val(),
+			"type":$('input[name="flag"]:checked').val()
 		}
-
 		$.ajax({
-			type:"get",//指定提交的类型，get对应doget(),post对应dopost()
+			type:"post",//指定提交的类型，get对应doget(),post对应dopost()
 			url: url,   // 地址
 			data:data,//data代表key -value类型的数据
 			dataType:'JSON', //定义数据的类型
 			success: function (value)//success、error代表是否返回成功
 			{
 				console.log(value);
-				if(value.data == "登录成功"){
-					window.location.href="http://localhost:8080/maven02/html/back.html";
+				if(value.message=="用户账号"){
+					window.location.href="http://localhost:8080/BookMall/test/user";
+				}else if(value.message=="管理账号"){
+					window.location.href="http://localhost:8080/BookMall/test/admin";
 				}
 			},
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -52,5 +55,4 @@
 		});
 	}
 </script>
-
 </html>

@@ -1,0 +1,73 @@
+*{
+    margin:0;
+    padding:0;
+}
+.bg{
+    background-image:url("../images/tree.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+.bg .box {
+    background-color: rgb(190, 189, 190);
+    width: 25%;
+    margin: 170px auto;
+    opacity: 0.6;
+}
+
+.bg .box h3 {
+    background: linear-gradient(42deg, rgb(66,62,13), rgb(34, 85, 128));
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 16px;
+}
+
+.bg .box .myForm {
+    margin-top: 30px;
+}
+
+.bg .box .myForm1 {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.bg .box .myForm h4 {
+    text-align: center;
+    color: rgb(34, 85, 128);
+    font-weight: 500;
+    margin-top: 25px;
+}
+
+.bg .box .myForm input {
+    width: 80%;
+    margin: 0 10%;
+    border: 1px solid rgb(34, 85, 128);
+    padding: 5px 0;
+    text-indent: 10px;
+    margin-top: 10px;
+}
+
+.bg .box .myForm input:hover {
+    box-shadow: 4px 5px 6px rgb(34, 85, 128);
+    transition: all 1s ease;
+    transform: scale(1.1, 1.1);
+}
+
+.bg .box .myForm input:focus {
+    box-shadow: 4px 5px 6px rgb(34, 85, 128);
+}
+
+.bg .box .myForm .AAA {
+    background: linear-gradient(42deg, rgb(34, 85, 128), rgb(66,62,13));
+    border: none;
+    color: #fff;
+    width: 80%;
+    margin: 35px 10%;
+    padding: 10px;
+}
+
+.bg .box .myForm .AAA:hover {
+    transition: all 1s ease;
+    transform: scale(1.1, 1.1);
+    box-shadow: 4px 5px 6px rgb(0, 0, 0);
+}
