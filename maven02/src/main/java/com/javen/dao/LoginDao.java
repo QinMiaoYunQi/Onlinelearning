@@ -18,7 +18,7 @@ public interface LoginDao {
 
     public List<Login> selectAll(int pageInteger, int limitInteger);
 
-    public List<Login> login(String userName, String password);
+    public List<Login> login(Login login);
 
     public int SelectCount();
 

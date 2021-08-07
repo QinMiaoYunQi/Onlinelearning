@@ -12,13 +12,13 @@
 <div class="box">
 	<h3>Please Enter Your Info</h3>
 	<form class="myForm1">
-		<input type="radio" name="flag" value="1" checked="checked"/>管理员
-		<input type="radio" name="flag" value="0" checked="checked"/>老师
+		<input type="radio" name="flag" value="0" checked="checked"/>管理员
+		<input type="radio" name="flag" value="1" checked="checked"/>老师
 		<input type="radio" name="flag" value="2" checked="checked"/>学生
 	</form>
 	<form class="myForm">
-		<h4>Your Account</h4>
-		<input type="text" id="username"/>
+		<h4>Your Phone</h4>
+		<input type="text" id="phone"/>
 		<h4>Your Password</h4>
 		<input type="text" id="password"/>
 		<input class="AAA" type="button" value="Finish" onclick="get()"/>
@@ -29,9 +29,9 @@
 <script>
 	function get(){
 		// ajax ---》 利用ajax进行数据提交  // ++ http协议
-		var url = "http://localhost:8080/BookMall/test/login";
+		var url = "http://localhost:8080/Onlinelearning/login/login";
 		var data = {
-			"username":$("#username").val(),
+			"phone":$("#phone").val(),
 			"password":$("#password").val(),
 			"type":$('input[name="flag"]:checked').val()
 		}
@@ -43,10 +43,12 @@
 			success: function (value)//success、error代表是否返回成功
 			{
 				console.log(value);
-				if(value.message=="用户账号"){
-					window.location.href="http://localhost:8080/BookMall/test/user";
-				}else if(value.message=="管理账号"){
-					window.location.href="http://localhost:8080/BookMall/test/admin";
+				if(value.data=="管理员账号"){
+					//window.location.href="http://localhost:8080/BookMall/test/user";
+				}else if(value.data=="教师账号"){
+					//window.location.href="http://localhost:8080/BookMall/test/admin";
+				}else if(value.data=="学生账号"){
+					//window.location.href="http://localhost:8080/BookMall/test/admin";
 				}
 			},
 			error:function (XMLHttpRequest, textStatus, errorThrown) {

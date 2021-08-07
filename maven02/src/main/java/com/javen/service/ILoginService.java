@@ -21,7 +21,7 @@ public interface ILoginService {
 
 	 public List<Login> selectAll(int pageInteger,int limitInteger);
 
-	 Boolean ifLogin(String userName, String password, HttpServletRequest request);
+	 Boolean ifLogin(Login login,HttpServletRequest request);
 
 	 public int SelectCount();
 

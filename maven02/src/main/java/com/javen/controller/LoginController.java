@@ -34,19 +34,31 @@ public class LoginController {
     }
 
     @ResponseBody
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(HttpServletRequest request){
-    	String userName = request.getParameter("userName");
-    	String password = request.getParameter("password");
-		System.out.println(userName + " " + password);
-		if (loginService.ifLogin(userName,password,request)){
-			return  "{\"data\":\"登录成功\"}";
+    	String phoneString = request.getParameter("phone");
+    	String passwordString = request.getParameter("password");
+    	String typeString=request.getParameter("type");
+    	Integer typeInt=Integer.valueOf(typeString);
+		System.out.println(phoneString + " " + passwordString+" "+typeString+" "+typeInt);
+		Login aaa=new Login();
+		aaa.setPhone(phoneString);
+		aaa.setPassword(passwordString);
+		aaa.setType(typeInt);
+		if (loginService.ifLogin(aaa,request)){
+			if (typeInt==0) {
+				return "{\"data\":\"管理员账号\"}";
+			}else if (typeInt==1){
+				return "{\"data\":\"教师账号\"}";
+			} else{
+				return "{\"data\":\"学生账号\"}";
+			}
 		}else {
-			return  "{\"data\":\"登录失败\"}";
+			return  "{\"data\":\"账号密码有误\"}";
 		}
 	}
     
-    //返回字符串
+    /*//返回字符串
     @ResponseBody
     @RequestMapping(value="/selectById", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
     public String selectById(HttpServletRequest request) throws Exception{  
@@ -135,7 +147,7 @@ public class LoginController {
 		String[] colums = { "id", "userName", "password"};
 		String data = ObjtoLayJson.ListtoJson(listsList, colums);
 		return data;
-    }
+    }*/
    
 }  
 

@@ -12,8 +12,8 @@
    	id,userName,password
   </sql>
 
-    <select id="login" resultType="com.javen.model.Login" parameterType="java.lang.String">
-        select * from login where userName = #{0} and password = #{1}
+    <select id="login" resultType="com.javen.model.Login" parameterType="com.javen.model.Login">
+        select * from login where phone = #{phone} and password = #{password} and type =#{type}
     </select>
   
   

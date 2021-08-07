@@ -57,12 +57,12 @@ public class ILoginServiceImpl implements ILoginService{
 	}
 
 
-	public Boolean ifLogin(String userName, String password, HttpServletRequest request) {
+	public Boolean ifLogin(Login login,HttpServletRequest request) {
 
-		List<Login> users = loginDao.login(userName,password);
-		if (users.size() == 1){
+		List<Login> aaa = loginDao.login(login);
+		if (aaa.size() == 1){
 			HttpSession session = request.getSession();
-			session.setAttribute("user",users.get(0));
+			session.setAttribute("phone",aaa.get(0));
 			return true;
 		}else {
 			return false;
