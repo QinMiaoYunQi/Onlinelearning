@@ -3,17 +3,17 @@
 <mapper namespace="com.javen.dao.LoginDao" >
   <resultMap id="BaseResultMap" type="com.javen.model.Login" >
     <id      column="id"        property="id"        jdbcType="INTEGER" />
-    <result  column="userName"  property="userName"  jdbcType="VARCHAR" />
+    <result  column="phone"  property="phone"  jdbcType="VARCHAR" />
     <result  column="password"  property="password"  jdbcType="VARCHAR" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
-   	id,userName,password
+   	id,phone,password
   </sql>
 
-    <select id="login" resultType="com.javen.model.Login" parameterType="java.lang.String">
-        select * from login where userName = #{0} and password = #{1}
+    <select id="login" parameterType="com.javen.model.Login" resultType="com.javen.model.Login">
+        select * from login where phone = #{phone} and password = #{password} and type = #{type}
     </select>
   
   
@@ -30,13 +30,13 @@
   </delete>
   
    <insert id="insert" parameterType="com.javen.model.Login" >
-    insert into login (userName, password)
-    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    insert into login (phone, password)
+    values (#{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
    </insert>
   
    <update id="updateByPrimaryKey"  parameterType="com.javen.model.Login" >
     update login
-    set userName = #{userName,jdbcType=VARCHAR},
+    set phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>

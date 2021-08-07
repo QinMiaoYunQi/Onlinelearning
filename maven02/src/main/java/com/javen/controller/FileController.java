@@ -31,9 +31,9 @@ public class FileController {
 
     @RequestMapping(value="/show",method= RequestMethod.GET)
     @ResponseBody
-    public String showfile(HttpServletRequest request) throws Exception {
+    public String showfile() throws Exception {
         List<com.javen.model.File> files = iFileService.show();
-        String[] colums = {"id","fileName"};
+        String[] colums = {"id","fileName","time","className"};
         String data = ObjtoLayJson.ListtoJson(files,colums);
         System.out.println(data);
         return data;
@@ -49,6 +49,9 @@ public class FileController {
     @RequestMapping(value="/upload",method= RequestMethod.POST)
     @ResponseBody
     public  String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+
+        String time = request.getParameter("time");
+        String className = request.getParameter("className");
 
         // uploads文件夹位置
         String rootPath = request.getSession().getServletContext().getRealPath("WEB-INF/upload");
@@ -69,6 +72,8 @@ public class FileController {
         //设置到数据库当中
         com.javen.model.File file1 = new com.javen.model.File();
         file1.setFileName(originalFileName);
+        file1.setTime(time);
+        file1.setClassName(className);
         iFileService.insert(file1);
 
         return  "{\"data\":\"success\"}";

@@ -13,6 +13,18 @@
 <body>
 <form id="addForm" style="display:none" action="http://localhost:8080/maven02/file/upload.action" method="post" enctype="multipart/form-data">
     选择文件:<input type="file" name="file" width="120px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">上传时间</label>
+        <div class="layui-input-block">
+            <input type="text" id="time" name="time" lay-verify="title" autocomplete="off" placeholder="上传时间" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">班级</label>
+        <div class="layui-input-block">
+            <input type="text" id="className" name="className" lay-verify="title" autocomplete="off" placeholder="班级" class="layui-input">
+        </div>
+    </div>
     <input type="submit" value="上传">
 </form>
 
@@ -57,7 +69,9 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'fileName', title:'用户名', width:120, edit: 'text'}
+                ,{field:'fileName', title:'文件名', width:120, edit: 'text'}
+                ,{field:'time', title:'上传时间', width:120, edit: 'text'}
+                ,{field:'className', title:'班级', width:120, edit: 'text'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: true
@@ -104,7 +118,7 @@
         function add(){
             layer_index= layer.open({
                 type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                title: "添加", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
+                title: "上传文件", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
                 area: ['500px', '400px'], //所打开页面大小
                 content:$("#addForm"), //内容
                 //关闭操作

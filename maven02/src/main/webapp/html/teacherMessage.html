@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="../sources/js/jquery.js"></script>
+    <script src="../sources/js/cookie.js"></script>
     <link rel="stylesheet" href="../sources/layui/css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
@@ -16,20 +18,31 @@
 <!-- 添加的from表单 -->
 <form class="layui-form" action="" id="addForm" style="display:none" lay-filter="add" enctype="multipart/form-data">
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">姓名</label>
         <div class="layui-input-block">
-            <input type="text" id="userName" name="userName" lay-verify="title" autocomplete="off" placeholder="用户名" class="layui-input">
+            <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="姓名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+            <input type="text" name="phone" lay-verify="phone" autocomplete="off" placeholder="手机号" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" id="password" name="password" lay-verify="title" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
-
-    <div class="layui-form-item" id="sub">
-        <button  class="layui-btn" type="button" lay-submit lay-filter="demo2" id="addsub">提交</button>
+    <div class="layui-form-item">
+        <label class="layui-form-label">班级</label>
+        <div class="layui-input-block">
+            <input type="text" name="className" lay-verify="className" autocomplete="off" placeholder="班级" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo2" id="addsub">提交</button>
     </div>
 </form>
 
@@ -42,15 +55,27 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">姓名</label>
         <div class="layui-input-block">
-            <input type="text" id="userName" name="userName" lay-verify="userName" autocomplete="off" placeholder="用户名" class="layui-input">
+            <input type="text" id="name" name="name" lay-verify="name" autocomplete="off" placeholder="姓名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+            <input type="text" id="phone" name="phone" lay-verify="phone" autocomplete="off" placeholder="手机号" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
             <input type="text" id="password" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">班级</label>
+        <div class="layui-input-block">
+            <input type="text" id="className" name="className" lay-verify="className" autocomplete="off" placeholder="班级" class="layui-input">
         </div>
     </div>
 
@@ -83,25 +108,28 @@
 <script>
     layui.use('table', function(){
         var table = layui.table;
-
         var pagecount;
-        page();
-        function page(){
+        getPage();
+        function getPage(){
+            var url="http://localhost:8080/maven02/teacher/SelectCount";
             $.ajax({
-                url: 'http://localhost:8080//maven02/login/SelectCount',
-                dataType: 'json',
-                type: 'get',
-                async:false,
-                success: function(data) {
-                    pagecount = data.count;
-                    console.log(pagecount)
+                type:"get",
+                url:url,
+                data:{},
+                dataType:'JSON',
+                success: function(data){
+                    console.log(data);
+                    pagecount=data.count;
+                },
+                error:function(XMLHttpRequest,textStatus,errorThrown){
+                    alert(typeof(ferrorThrown));
                 }
             });
         }
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/maven02/login/selectAll'
+            ,url:'http://localhost:8080/maven02/teacher/selectAll'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -112,11 +140,14 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'userName', title:'用户名', width:120, edit: 'text'}
-                ,{field:'password', title:'密码', width:120, edit: 'text'}
+                ,{field:'name', title:'姓名', width:120, edit: 'text'}
+                ,{field:'phone', title:'手机号', width:200, edit: 'text'}
+                ,{field:'password', title:'密码', width:200, edit: 'text'}
+                ,{field:'className', title:'班级', width:200, edit: 'text', sort: true}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: true
+            ,limit: 10
             ,response:{
                 statusName: 'status' //规定数据状态的字段名称，默认：code
                 ,dataName: 'rows' //规定数据列表的字段名称，默认：data
@@ -131,10 +162,88 @@
             }
         });
 
-        //头工具栏事件
+//引入from表单
+        layui.use(['form', 'laydate'], function(){
+            form = layui.form;
+            form.render();
+
+            //表单取值
+            form.on('submit(demo2)', function(data){
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url:'http://localhost:8080/maven02/teacher/insert',
+                    method:'get',
+                    data:data.field,
+                    dataType:'JSON',
+                    success:function(res){
+                        if(res.status='0'){
+                            console.log(res);
+                            layer.msg("添加成功");
+                            $("#addForm")[0].reset();
+                            form.render();
+                            getPage();
+                        }else{
+                            layer.msg("添加失败");
+                            $("#addForm")[0].reset();
+                            form.render();
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg("网络错误");
+                        $("#addForm")[0].reset();
+                        form.render();
+                    }
+                }) ;
+                layer.close(layer_index);
+            });
+
+
+            form.on('submit(demo3)', function(data){
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url:'http://localhost:8080/maven02/teacher/update',
+                    method:'get',
+                    data:data.field,
+                    dataType:'JSON',
+                    success:function(res){
+                        if(res.status='0'){
+                            console.log(res);
+                            layer.msg("修改成功");
+                            $("#updataForm")[0].reset();
+                            form.render();
+                            table.reload('test', {
+                                url: 'http://localhost:8080/maven02/teacher/selectAll'
+                            });
+                            getPage();
+                        }else{
+                            layer.msg("修改失败");
+                            $("#updataForm")[0].reset();
+                            form.render();
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg("网络错误");
+                        $("#updataForm")[0].reset();
+                        form.render();
+                    }
+                }) ;
+                layer.close(layer_index);
+            });
+
+
+        });
+
+
+
+
+
+//头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
+                case 'add':
+                    add();
+                    break;
                 case 'getCheckData':
                     var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
@@ -146,15 +255,34 @@
                 case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选');
                     break;
-                case 'add':
-                    add();
-                    break;
-
                 //自定义头工具栏右侧图标 - 提示
                 case 'LAYTABLE_TIPS':
                     layer.alert('这是工具栏右侧自定义的一个图标按钮');
                     break;
             };
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    //在这里写删除方法
+                    deleteById(data.id);
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                form.val("updata", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                    "id": data.id // "name": "value"
+                    ,"name":data.name
+                    ,"phone": data.phone
+                    ,"password": data.password
+                    ,"className": data.className
+                });
+                updateById(data);
+            }
         });
 
         function add(){
@@ -172,102 +300,33 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/maven02/login/selectAll'
+                url: 'http://localhost:8080/maven02/teacher/selectAll'
             });
         }
 
 
-        //引入from表单
-        layui.use(['form', 'laydate'], function(){
-            form = layui.form;
-            form.render();
+//删除
+        function deleteById(index){
 
-            //表单取值
-            form.on('submit(demo2)', function(data){
-                console.log(JSON.stringify(data.field));
-                $.ajax({
-                    url:'http://localhost:8080/maven02/login/insert',
-                    method:'get',
-                    data:data.field,
-                    dataType:'JSON',
-                    success:function(res){
-                        if(res.status='0'){
-                            console.log(res);
-                            layer.msg("添加成功");
-                            $("#addForm")[0].reset();
-                            form.render();
-
-                            page();
-                        }else{
-                            layer.msg("添加失败");
-                            $("#addForm")[0].reset();
-                            form.render();
-                        }
-                    },
-                    error:function (data) {
-                        layer.msg("网络错误");
-                        $("#addForm")[0].reset();
-                        form.render();
-                    }
-                }) ;
-                layer.close(layer_index);
+            var url = "http://localhost:8080/maven02/teacher/delete";
+            $.ajax({
+                type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+                url: url,    //传输地址的URL
+                data: {"id":index}, //data代表我们的数据  key -value类型的数据
+                dataType:'JSON',
+                async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+                success: function (res)
+                {if(res.message=="删除成功"){layer.msg("删除成功");}
+                else{layer.msg("删除失败");}
+                },
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(typeof(errorThrown));
+                }
             });
+        }
 
-            form.on('submit(demo3)', function(data){
-                $.ajax({
-                    url:'http://localhost:8080/maven02/login/update',
-                    method:'get',
-                    data:data.field,
-                    dataType:'JSON',
-                    success:function(res){
-                        if(res.status='0'){
-                            console.log(res);
-                            layer.msg("添加成功");
-                            $("#updataForm")[0].reset();
-                            form.render();
-                            //刷新页面
-                            table.reload('test', {
-                                url: 'http://localhost:8080/maven02/login/selectAll'
-                            });
-                            page();
-                        }else{
-                            layer.msg("添加失败");
-                            $("#updataForm")[0].reset();
-                            form.render();
-                        }
-                    },
-                    error:function (data) {
-                        layer.msg("网络错误");
-                        $("#updataForm")[0].reset();
-                        form.render();
-                    }
-                }) ;
-                layer.close(layer_index);
-            });
 
-        });
-
-        //监听行工具事件
-        table.on('tool(test)', function(obj){
-            var data = obj.data;
-            //console.log(obj)
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    deleteById(data.id);
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
-                form.val("updata", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-                    "id": data.id // "name": "value"
-                    ,"userName":data.userName
-                    ,"password": data.password
-                });
-                updateById(data);
-            }
-        });
-
-        //修改
+//修改
         function updateById(data){
 
             layer_index= layer.open({
@@ -276,6 +335,7 @@
                 area: ['500px', '400px'], //所打开页面大小
                 content:$("#updataForm"), //内容
                 //将数据显示在框上边
+
                 //关闭操作
                 cancel: function(){
                     layer.close(layer_index);
@@ -283,31 +343,11 @@
 
                 }
             });
-
-        }
-
-
-
-        //删除
-        function deleteById(index){
-
-            var url = "http://localhost:8080/maven02/login/deleteByPrimaryKey";
-            $.ajax({
-                type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
-                url: url,    //传输地址的URL
-                data: {"id":index}, //data代表我们的数据  key -value类型的数据
-                dataType:'JSON',
-                async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
-                success: function (res)
-                {
-
-                },
-                error:function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(typeof(errorThrown));
-                }
+            //刷新页面
+            table.reload('test', {
+                url: 'http://localhost:8080/maven02/teacher/selectAll'
             });
         }
-
 
     });
 </script>

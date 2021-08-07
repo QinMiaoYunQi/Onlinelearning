@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.javen.model.User;
 import org.springframework.stereotype.Service;
 
 import com.javen.dao.LoginDao;
@@ -18,9 +17,8 @@ public class ILoginServiceImpl implements ILoginService{
 
 	@Resource
 	private LoginDao loginDao;
-	
-	
-	
+
+
 	public Login selectByPrimaryKey(int id) {
 		// TODO Auto-generated method stub
 		return this.loginDao.selectByPrimaryKey(id);
@@ -57,12 +55,12 @@ public class ILoginServiceImpl implements ILoginService{
 	}
 
 
-	public Boolean ifLogin(String userName, String password, HttpServletRequest request) {
+	public Boolean ifLogin(Login login,HttpServletRequest request) {
 
-		List<Login> users = loginDao.login(userName,password);
-		if (users.size() == 1){
+		List<Login> logins = loginDao.login(login);
+		if (logins.size() == 1){
 			HttpSession session = request.getSession();
-			session.setAttribute("user",users.get(0));
+			session.setAttribute("logins",logins.get(0));
 			return true;
 		}else {
 			return false;

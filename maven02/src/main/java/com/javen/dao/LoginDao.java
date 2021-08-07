@@ -1,7 +1,6 @@
 package com.javen.dao;
 
 import com.javen.model.Login;
-import com.javen.model.User;
 
 
 import java.util.List;
@@ -18,7 +17,7 @@ public interface LoginDao {
 
     public List<Login> selectAll(int pageInteger, int limitInteger);
 
-    public List<Login> login(String userName, String password);
+    public List<Login> login(Login login);
 
     public int SelectCount();
 

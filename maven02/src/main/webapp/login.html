@@ -1,0 +1,66 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>登录页面</title>
+	<link rel="stylesheet" href="sources/css/mystyle.css" />
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="sources/js/jquery.js"></script>
+</head>
+<body class="body_bg">
+<div class="whole">
+	<div class="title">Please Login</div>
+	<form class="myForm1" align="center">
+		<input type="radio" name="flag" value="1" checked="checked"/>管理员
+		<input type="radio" name="flag" value="0" checked="checked"/>学生
+		<input type="radio" name="flag" value="2" checked="checked"/>老师
+	</form>
+	<form id="form1" action="" method="get" class="form_box">
+		<div class="input_tit">Your Account</div>
+		<div class="input_box">
+			<input class="input_self" type="text" name="phone" id="phone"/>
+		</div>
+		<div class='blank_30'></div>
+		<div class="input_tit">Your Password</div>
+		<div class="input_box">
+			<input class="input_self" type="text" name="password" id="password" />
+		</div>
+		<div class="finish_box">
+			<button class="finish_btn" type="button" id="finish" name="finish" onclick="select()">登录</button>
+		</div>
+	</form>
+</div>
+</body>
+<script>
+	function select(){
+		var data = {
+			"phone":$("#phone").val(),
+			"password":$("#password").val(),
+			"type": $("input:radio:checked").val()
+		}
+
+		$.ajax({
+			type:"get",//指定提交的类型，get对应doget(),post对应dopost()
+			url: "http://localhost:8080/maven02/login/login",   // 地址
+			data:data,//data代表key -value类型的数据
+			dataType:'JSON', //定义数据的类型
+			success: function (value)//success、error代表是否返回成功
+			{
+				console.log(value.data);
+
+				if(value.message=="学生"){
+					window.location.href="http://localhost:8080/maven02/html/Student.html";
+				}else if(value.message=="管理员"){
+					window.location.href="http://localhost:8080/maven02/html/Admin.html";
+				}else if (value.message=="老师"){
+					window.location.href="http://localhost:8080/maven02/html/Teacher.html";
+				}
+			},
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				alert(typeof(errorThrown));
+			}
+		});
+	}
+
+</script>
+
+</html>

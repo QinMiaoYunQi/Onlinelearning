@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,20 +29,33 @@ public class LoginController {
     // /user/test?id=1
     @RequestMapping(value="/back", method=RequestMethod.GET)
     public String test(HttpServletRequest request,Model model){  
-        return "back"; 
+        return "Admin";
     }
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login(HttpServletRequest request){
-    	String userName = request.getParameter("userName");
-    	String password = request.getParameter("password");
-		System.out.println(userName + " " + password);
-		if (loginService.ifLogin(userName,password,request)){
-			return  "{\"data\":\"登录成功\"}";
-		}else {
-			return  "{\"data\":\"登录失败\"}";
+	public String login(HttpServletRequest request) {
+		String phone = request.getParameter("phone");
+		String password = request.getParameter("password");
+		String typeString = request.getParameter("type");
+		int type = Integer.valueOf(typeString);
+		Login login = new Login();
+		login.setPhone(phone);
+		login.setPassword(password);
+		login.setType(type);
+		System.out.println(phone + " " + password + " " + type);
+		if (loginService.ifLogin(login, request)) {
+			if (type == 1) {
+				return "{\"message\":\"管理员\"}";
+			} else if (type == 0) {
+				return "{\"message\":\"学生\"}";
+			} else if (type == 2) {
+				return "{\"message\":\"老师\"}";
+			}
+			;
 		}
+			return "{\"data\":\"登录失败\"}";
+
 	}
     
     //返回字符串
@@ -54,7 +66,7 @@ public class LoginController {
     	Integer idInteger = Integer.valueOf(idString);
     	Login login = loginService.selectByPrimaryKey(idInteger);
     	System.out.println(login.toString());
-    	String[] colums = {"id","userName","password"};
+    	String[] colums = {"id","phone","password"};
     	String data = ObjtoLayJson.toJson(login, colums);
     	System.out.println(data);
         return data;
@@ -74,12 +86,12 @@ public class LoginController {
     @RequestMapping(value="/insert", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
     public String insert(HttpServletRequest request) {
     	//插入数据库
-    	String usernameString = request.getParameter("userName");
+    	String phoneString = request.getParameter("phone");
     	String passwordString = request.getParameter("password");
     	
     	Login login = new Login();
     	login.setPassword(passwordString);
-    	login.setUserName(usernameString);
+    	login.setPhone(phoneString);
     	
     	loginService.insert(login);
 
@@ -93,14 +105,14 @@ public class LoginController {
     public String update(HttpServletRequest request) {
     	//插入数据库
     	String idString = request.getParameter("id");
-    	String usernameString = request.getParameter("userName");
+    	String phoneString = request.getParameter("phone");
     	String passwordString = request.getParameter("password");
     	Integer idInteger = Integer.valueOf(idString);
     	
     	Login login = new Login();
     	login.setId(idInteger);
     	login.setPassword(passwordString);
-    	login.setUserName(usernameString);
+    	login.setPhone(phoneString);
     	
     	loginService.updateByPrimaryKey(login);
     	
@@ -132,7 +144,7 @@ public class LoginController {
 		Integer limitInteger = Integer.valueOf(limitString);
 		System.out.println(pageString + limitString);
 		List<Login> listsList = loginService.selectAll(pageInteger,limitInteger);
-		String[] colums = { "id", "userName", "password"};
+		String[] colums = { "id", "phone", "password"};
 		String data = ObjtoLayJson.ListtoJson(listsList, colums);
 		return data;
     }

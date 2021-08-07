@@ -3,6 +3,25 @@ package com.javen.model;
 public class File {
     private Integer id;
     private String fileName;
+    private String time;
+    private String className;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
 
     public Integer getId() {
         return id;
@@ -25,6 +44,8 @@ public class File {
         return "File{" +
                 "id=" + id +
                 ", fileName='" + fileName + '\'' +
+                ", time='" + time + '\'' +
+                ", className='" + className + '\'' +
                 '}';
     }
 }
