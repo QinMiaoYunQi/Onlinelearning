@@ -123,13 +123,22 @@ public class StudentController {
 
     @ResponseBody
     @RequestMapping(value = "/likeByName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public List<Student> likeByName(HttpServletRequest request) {
+    public String likeByName(HttpServletRequest request) throws Exception {
         String name = request.getParameter("name");
-        List<Student> students = iStudentService.likeByName(name);
+        String pageString = request.getParameter("page");
+        String limitString = request.getParameter("limit");
+        Integer pageInteger = Integer.valueOf(pageString);
+        Integer limitInteger = Integer.valueOf(limitString);
+        System.out.println(pageString +" "+ limitString);
+        System.out.println("name:"+name);
+        List<Student> students = iStudentService.likeByName(name,pageInteger,limitInteger);
         for (Student student : students) {
             System.out.println(student.toString());
         }
-        return students;
+        String[] colums = { "id", "name", "phone","password", "className" };
+        String data = ObjtoLayJson.ListtoJson(students, colums);
+        System.out.println(data);
+        return data;
     }
 
 }

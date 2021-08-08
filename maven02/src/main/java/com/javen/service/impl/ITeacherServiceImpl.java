@@ -38,14 +38,21 @@ public class ITeacherServiceImpl implements ITeacherService {
         return this.teacherDao.update(teacher);
     }
 
-    public List<Teacher> likeByName(String value) {
-        return this.teacherDao.likeByName(value);
+    public List<Teacher> likeByName(String value,int pageInteger, int limitInteger) {
+        int pageIndex = (pageInteger-1) * limitInteger;
+        int pageSize = limitInteger;
+        return this.teacherDao.likeByName(value,pageIndex,pageSize);
     }
 
 
     public int SelectCount() {
         // TODO Auto-generated method stub
         return this.teacherDao.SelectCount();
+    }
+
+    public int getCount(String name) {
+        // TODO Auto-generated method stub
+        return this.teacherDao.getCount(name);
     }
 
 }

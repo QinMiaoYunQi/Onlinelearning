@@ -120,13 +120,34 @@ public class TeacherController {
     }
 
     @ResponseBody
-    @RequestMapping("/likeByName")
-    public List<Teacher> likeByName() {
-        List<Teacher> teachers = iTeacherService.likeByName("熊");
+    @RequestMapping(value = "/getCount", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+    public String getCount(HttpServletRequest request) {
+        String name = request.getParameter("name");
+        int count = iTeacherService.getCount(name);
+        System.out.println( "count:" + count );
+        String data = String.valueOf(count);
+        String json= "{"+"\"count\":"+data+"}";
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/likeByName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String likeByName(HttpServletRequest request) throws Exception {
+        String name = request.getParameter("name");
+        String pageString = request.getParameter("page");
+        String limitString = request.getParameter("limit");
+        Integer pageInteger = Integer.valueOf(pageString);
+        Integer limitInteger = Integer.valueOf(limitString);
+        System.out.println(pageString +" "+ limitString);
+        System.out.println("name:"+name);
+        List<Teacher> teachers = iTeacherService.likeByName(name,pageInteger,limitInteger);
         for (Teacher teacher : teachers) {
             System.out.println(teacher.toString());
         }
-        return teachers;
+        String[] colums = { "id", "name", "phone","password", "className" };
+        String data = ObjtoLayJson.ListtoJson(teachers, colums);
+        System.out.println(data);
+        return data;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.javen.service;
 
 import com.javen.model.Student;
+import com.javen.model.Teacher;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public interface IStudentService {
 
     public int update(Student student);
 
-    public List<Student> likeByName(String value);
+    public List<Student> likeByName(@Param("value") String value, int pageIndex, int pageSize);
 
 
     int SelectCount();

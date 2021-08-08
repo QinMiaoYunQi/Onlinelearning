@@ -83,6 +83,13 @@
         <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo3" id="updatasub">提交</button>
     </div>
 </form>
+<div class="demoTable">
+    搜索：
+    <div class="layui-inline">
+        <input class="layui-input" name="keyword" id="demoReload" autocomplete="off" placeholder="请输入...">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
 
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
@@ -160,6 +167,28 @@
                     "rows": res[3].rows.item  //解析数据列表
                 };
             }
+        });
+
+        active = {
+            reload: function(){
+                //执行重载
+                table.reload('test', {
+                    url: 'http://localhost:8080/maven02/student/likeByName?name='+$("#demoReload").val()
+                    ,methods:"get"
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                        }
+                    }
+                }, 'data');
+            }
+        };
+
+        layui.$('.demoTable .layui-btn').on('click', function(){
+            var type = layui.$(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
 
 //引入from表单

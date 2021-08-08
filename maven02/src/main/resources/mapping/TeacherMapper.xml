@@ -27,4 +27,7 @@
     <select id="SelectCount"  resultType="java.lang.Integer" >
         SELECT count(*) FROM teacher;
     </select>
+    <select id="getCount"  resultType="java.lang.Integer"  parameterType="java.lang.String" >
+        SELECT count(*) FROM teacher where name like '%${value}%';
+    </select>
 </mapper>

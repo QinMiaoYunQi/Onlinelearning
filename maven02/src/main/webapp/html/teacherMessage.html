@@ -83,17 +83,18 @@
         <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo3" id="updatasub">提交</button>
     </div>
 </form>
-
-
+<div class="demoTable">
+    搜索：
+    <div class="layui-inline">
+        <input class="layui-input" name="keyword" id="demoReload" autocomplete="off" placeholder="请输入...">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button type="button" class="layui-btn layui-btn-sm" id="add" lay-event="add">添加</button>
-        <div class="search">
-            <input type="text" class="layui-btn layui-btn-sm"  placeholder="请输入..."/>
-            <button  class="layui-btn layui-btn-sm" id="select" lay-event="select"><i>搜索</i></button>
-        </div>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
@@ -164,6 +165,28 @@
                     "rows": res[3].rows.item  //解析数据列表
                 };
             }
+        });
+
+        active = {
+            reload: function(){
+                //执行重载
+                table.reload('test', {
+                    url: 'http://localhost:8080/maven02/teacher/likeByName?name='+$("#demoReload").val()
+                    ,methods:"get"
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                        }
+                    }
+                }, 'data');
+            }
+        };
+
+        layui.$('.demoTable .layui-btn').on('click', function(){
+            var type = layui.$(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
 
 //引入from表单
@@ -248,9 +271,6 @@
                 case 'add':
                     add();
                     break;
-                case 'select':
-                    select();
-                    break;
                 case 'getCheckData':
                     var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
@@ -313,12 +333,11 @@
 
         function select(){
 
-            var url = "http://localhost:8080/maven02/teacher/select";
-            var name =
+            var url = "http://localhost:8080/maven02/teacher/likeByName";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
-                data: {}, //data代表我们的数据  key -value类型的数据
+                data: {"name":$("#input").val()}, //data代表我们的数据  key -value类型的数据
                 dataType:'JSON',
                 async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
                 success: function (res)
