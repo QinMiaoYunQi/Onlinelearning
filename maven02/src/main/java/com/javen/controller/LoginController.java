@@ -32,6 +32,18 @@ public class LoginController {
     public String test(HttpServletRequest request,Model model){  
         return "back"; 
     }
+	@RequestMapping(value="/teacher", method=RequestMethod.GET)   //
+	public String teacher(HttpServletRequest request,Model model){
+		return "teacher";
+	}
+	@RequestMapping(value="/admin", method=RequestMethod.GET)
+	public String admin(HttpServletRequest request,Model model){
+		return "admin";
+	}
+	@RequestMapping(value="/student", method=RequestMethod.GET)
+	public String student(HttpServletRequest request,Model model){
+		return "student";
+	}
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)

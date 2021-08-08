@@ -32,7 +32,9 @@ public class FileController {
     @RequestMapping(value="/show",method= RequestMethod.GET)
     @ResponseBody
     public String showfile(HttpServletRequest request) throws Exception {
+        System.out.println("测试是否进入");
         List<com.javen.model.File> files = iFileService.show();
+        System.out.println(files);
         String[] colums = {"id","fileName"};
         String data = ObjtoLayJson.ListtoJson(files,colums);
         System.out.println(data);

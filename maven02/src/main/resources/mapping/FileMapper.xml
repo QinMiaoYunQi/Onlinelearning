@@ -8,7 +8,7 @@
    </insert>
 
     <select id="show" resultType="com.javen.model.File">
-        select * from  file;
+        select * from file;
     </select>
 
 </mapper>
