@@ -90,6 +90,10 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button type="button" class="layui-btn layui-btn-sm" id="add" lay-event="add">添加</button>
+        <div class="search">
+            <input type="text" class="layui-btn layui-btn-sm"  placeholder="请输入..."/>
+            <button  class="layui-btn layui-btn-sm" id="select" lay-event="select"><i>搜索</i></button>
+        </div>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
@@ -244,6 +248,9 @@
                 case 'add':
                     add();
                     break;
+                case 'select':
+                    select();
+                    break;
                 case 'getCheckData':
                     var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
@@ -304,6 +311,24 @@
             });
         }
 
+        function select(){
+
+            var url = "http://localhost:8080/maven02/teacher/select";
+            var name =
+            $.ajax({
+                type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+                url: url,    //传输地址的URL
+                data: {}, //data代表我们的数据  key -value类型的数据
+                dataType:'JSON',
+                async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+                success: function (res)
+                {console.log(res);
+                },
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(typeof(errorThrown));
+                }
+            });
+        }
 
 //删除
         function deleteById(index){
