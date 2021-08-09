@@ -20,10 +20,6 @@ public class TeacherController {
     private ITeacherService iTeacherService;
 
 
-    @RequestMapping("/teacher")
-    public String back(){
-        return "Teacher";
-    }
     @ResponseBody
     @RequestMapping(value="/selectAll", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
     public String selectAll(HttpServletRequest request) throws Exception{

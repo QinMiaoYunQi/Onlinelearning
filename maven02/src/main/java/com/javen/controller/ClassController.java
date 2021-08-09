@@ -1,7 +1,7 @@
 package com.javen.controller;
 
-import com.javen.model.Student;
-import com.javen.service.IStudentService;
+import com.javen.model.Class;
+import com.javen.service.IClassService;
 import com.javen.util.ObjtoLayJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/student")
-public class StudentController {
-
+@RequestMapping("/class")
+public class ClassController {
     @Autowired
-    private IStudentService iStudentService;
-
+    private IClassService iClassService;
 
 
     @ResponseBody
@@ -29,15 +27,15 @@ public class StudentController {
         Integer pageInteger = Integer.valueOf(pageString);
         Integer limitInteger = Integer.valueOf(limitString);
         System.out.println(pageString +" "+ limitString);
-        List<Student> listsList = iStudentService.selectAll(pageInteger,limitInteger);
-        String[] colums = { "id", "name", "phone","password", "className" };
+        List<Class> listsList = iClassService.selectAll(pageInteger,limitInteger);
+        String[] colums = { "id", "className", "foundTime","teacherName"};
         String data = ObjtoLayJson.ListtoJson(listsList, colums);
         return data;
     }
     @ResponseBody
     @RequestMapping(value = "/SelectCount", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
     public String SelectCount(HttpServletRequest request) {
-        int count = iStudentService.SelectCount();
+        int count = iClassService.SelectCount();
         System.out.println( "count:" + count );
         String data = String.valueOf(count);
         String json= "{"+"\"count\":"+data+"}";
@@ -48,28 +46,26 @@ public class StudentController {
 
     @ResponseBody
     @RequestMapping(value = "/selectById", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public Student selectById(HttpServletRequest request){
+    public Class selectById(HttpServletRequest request){
         String id = request.getParameter("id");
         Integer idInteger = Integer.valueOf(id);
-        Student student = iStudentService.selectById(idInteger);
-        return student;
+        Class cla = iClassService.selectById(idInteger);
+        return cla;
     }
 
     @ResponseBody
     @RequestMapping(value="insert", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
     public String insert(HttpServletRequest request){
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        String password = request.getParameter("password");
         String className = request.getParameter("className");
-        System.out.println(name+" "+phone+" "+password+" "+className);
+        String foundTime = request.getParameter("foundTime");
+        String teacherName = request.getParameter("teacherName");
+        System.out.println(className+" "+foundTime+" "+teacherName);
         System.out.println("-------------------------");
-        Student student = new Student();
-        student.setName(name);
-        student.setPhone(phone);
-        student.setPassword(password);
-        student.setClassName(className);
-        int count = iStudentService.insert(student);
+        Class cla = new Class();
+        cla.setClassName(className);
+        cla.setFoundTime(foundTime);
+        cla.setTeacherName(teacherName);
+        int count = iClassService.insert(cla);
         String json="";
         if(count==0) {
             json="{\"count\":\"200\",\"message\":\"添加失败\"}";
@@ -83,7 +79,7 @@ public class StudentController {
     public String delete(HttpServletRequest request){
         String id = request.getParameter("id");
         Integer idInteger = Integer.valueOf(id);
-        int count = iStudentService.delete(idInteger);
+        int count = iClassService.delete(idInteger);
         String json="";
         if(count==0) {
             json="{\"count\":\"200\",\"message\":\"删除失败\"}";
@@ -97,19 +93,17 @@ public class StudentController {
     public String update(HttpServletRequest request) {
         String id = request.getParameter("id");
         Integer idInteger = Integer.valueOf(id);
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        String password = request.getParameter("password");
         String className = request.getParameter("className");
-        System.out.println(id+" "+name+" "+phone+" "+password+" "+className);
-        System.out.println("...............");
-        Student student = new Student();
-        student.setId(idInteger);
-        student.setName(name);
-        student.setPhone(phone);
-        student.setPassword(password);
-        student.setClassName(className);
-        int count = iStudentService.update(student);
+        String foundTime = request.getParameter("foundTime");
+        String teacherName = request.getParameter("teacherName");
+        System.out.println(className+" "+foundTime+" "+teacherName);
+        System.out.println("-------------------------");
+        Class cla = new Class();
+        cla.setId(idInteger);
+        cla.setClassName(className);
+        cla.setFoundTime(foundTime);
+        cla.setTeacherName(teacherName);
+        int count = iClassService.update(cla);
         String json="";
         if(count==0) {
             json="{\"count\":\"200\",\"message\":\"修改失败\"}";
@@ -119,23 +113,12 @@ public class StudentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/likeByName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public String likeByName(HttpServletRequest request) throws Exception {
-        String name = request.getParameter("name");
-        String pageString = request.getParameter("page");
-        String limitString = request.getParameter("limit");
-        Integer pageInteger = Integer.valueOf(pageString);
-        Integer limitInteger = Integer.valueOf(limitString);
-        System.out.println(pageString +" "+ limitString);
-        System.out.println("name:"+name);
-        List<Student> students = iStudentService.likeByName(name,pageInteger,limitInteger);
-        for (Student student : students) {
-            System.out.println(student.toString());
-        }
-        String[] colums = { "id", "name", "phone","password", "className" };
-        String data = ObjtoLayJson.ListtoJson(students, colums);
-        System.out.println(data);
-        return data;
+    @RequestMapping(value="GetTeacher", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String GetTeacher() throws Exception {
+        List<Class> listsList = iClassService.selectAll(1,10);
+        String[] colums= {"id", "className", "foundTime","teacherName"};
+        String json = ObjtoLayJson.ListtoJson(listsList, colums);
+        System.out.println(json);
+        return json;
     }
-
 }

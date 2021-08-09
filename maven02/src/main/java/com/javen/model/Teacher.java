@@ -9,7 +9,7 @@ public class Teacher {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Teacher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
