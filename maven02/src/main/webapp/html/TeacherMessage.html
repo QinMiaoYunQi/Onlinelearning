@@ -83,25 +83,27 @@
         <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo3" id="updatasub">提交</button>
     </div>
 </form>
-
+<div class="demoTable">
+    搜索(手机号)：
+    <div class="layui-inline">
+        <input class="layui-input" name="keyword" id="demoReload" autocomplete="off" placeholder="请输入手机号">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button type="button" class="layui-btn layui-btn-sm" id="add" lay-event="add">添加</button>
-        <div class="search">
-            <input type="text" class="layui-btn layui-btn-sm"  placeholder="请输入..."/>
-            <button  class="layui-btn layui-btn-sm" id="select" lay-event="select"><i>搜索</i></button>
-        </div>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>-->
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -115,7 +117,7 @@
         var pagecount;
         getPage();
         function getPage(){
-            var url="http://localhost:8080/maven02/teacher/SelectCount";
+            var url="http://localhost:8080/Onlinelearning/teacher/SelectCount";
             $.ajax({
                 type:"get",
                 url:url,
@@ -133,7 +135,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/maven02/teacher/selectAll'
+            ,url:'http://localhost:8080/Onlinelearning/teacher/selectAll'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -151,7 +153,7 @@
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: true
-            ,limit: 10
+            ,limit: 2
             ,response:{
                 statusName: 'status' //规定数据状态的字段名称，默认：code
                 ,dataName: 'rows' //规定数据列表的字段名称，默认：data
@@ -166,16 +168,38 @@
             }
         });
 
+        active = {
+            reload: function(){
+                //执行重载
+                table.reload('test', {
+                    url: 'http://localhost:8080/Onlinelearning/teacher/likeByName?phone='+$("#demoReload").val()
+                    ,methods:"get"
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                        }
+                    }
+                }, 'data');
+            }
+        };
+
+        layui.$('.demoTable .layui-btn').on('click', function(){
+            var type = layui.$(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
 //引入from表单
         layui.use(['form', 'laydate'], function(){
             form = layui.form;
             form.render();
 
-            //表单取值
+            //表单取值-添加
             form.on('submit(demo2)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/maven02/teacher/insert',
+                    url:'http://localhost:8080/Onlinelearning/teacher/insert',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -202,10 +226,11 @@
             });
 
 
+            //修改
             form.on('submit(demo3)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/maven02/teacher/update',
+                    url:'http://localhost:8080/Onlinelearning/teacher/update',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -216,7 +241,7 @@
                             $("#updataForm")[0].reset();
                             form.render();
                             table.reload('test', {
-                                url: 'http://localhost:8080/maven02/teacher/selectAll'
+                                url: 'http://localhost:8080/Onlinelearning/teacher/selectAll'
                             });
                             getPage();
                         }else{
@@ -247,9 +272,6 @@
             switch(obj.event){
                 case 'add':
                     add();
-                    break;
-                case 'select':
-                    select();
                     break;
                 case 'getCheckData':
                     var data = checkStatus.data;
@@ -307,33 +329,32 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/maven02/teacher/selectAll'
+                url: 'http://localhost:8080/Onlinelearning/teacher/selectAll'
             });
         }
 
         function select(){
 
-            var url = "http://localhost:8080/maven02/teacher/select";
-            var name =
-                $.ajax({
-                    type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
-                    url: url,    //传输地址的URL
-                    data: {}, //data代表我们的数据  key -value类型的数据
-                    dataType:'JSON',
-                    async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
-                    success: function (res)
-                    {console.log(res);
-                    },
-                    error:function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert(typeof(errorThrown));
-                    }
-                });
+            var url = "http://localhost:8080/Onlinelearning/teacher/likeByName";
+            $.ajax({
+                type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+                url: url,    //传输地址的URL
+                data: {"name":$("#input").val()}, //data代表我们的数据  key -value类型的数据
+                dataType:'JSON',
+                async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+                success: function (res)
+                {console.log(res);
+                },
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(typeof(errorThrown));
+                }
+            });
         }
 
 //删除
         function deleteById(index){
 
-            var url = "http://localhost:8080/maven02/teacher/delete";
+            var url = "http://localhost:8080/Onlinelearning/teacher/delete";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
@@ -370,7 +391,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/maven02/teacher/selectAll'
+                url: 'http://localhost:8080/Onlinelearning/teacher/selectAll'
             });
         }
 
