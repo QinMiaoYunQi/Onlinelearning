@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.javen.dao.StudentDao" >
+
+    <select id="GetCountStudent" resultType="java.lang.Integer">
+        select count(*) from student;
+    </select>
+
+    <select id="selectAll" resultType="com.javen.model.Student" parameterType="java.lang.Integer">
+        select * from student
+        limit #{param1},#{param2}
+    </select>
+
+    <insert id="insert" parameterType="com.javen.model.Student">
+        insert into student (name,phone,password,className) values (#{name},#{phone},#{password},#{className})
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from student where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.javen.model.Student">
+        update student set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
+    </update>
+</mapper>
