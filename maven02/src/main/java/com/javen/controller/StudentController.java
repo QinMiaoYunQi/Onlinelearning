@@ -73,7 +73,8 @@ public class StudentController {
 
     @ResponseBody
     @RequestMapping(value="delete", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public String delete(HttpServletRequest request){
+    public String delete(HttpServletRequest request)    //删除
+    {
         String idString = request.getParameter("id");
         Integer idInteger = Integer.valueOf(idString);
         System.out.println("id: "+idInteger);
@@ -88,7 +89,8 @@ public class StudentController {
 
     @ResponseBody
     @RequestMapping(value="update", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public String update(HttpServletRequest request) {
+    public String update(HttpServletRequest request)     //修改功能
+    {
         String idString = request.getParameter("id");
         Integer idInteger = Integer.valueOf(idString);
         String nameString = request.getParameter("name");
@@ -112,5 +114,25 @@ public class StudentController {
         }
         System.out.println(json);
         return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/likeByName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String likeByName(HttpServletRequest request) throws Exception   //搜索查询功能
+    {
+        String phoneString = request.getParameter("phone");
+        String pageString = request.getParameter("page");
+        String limitString = request.getParameter("limit");
+        Integer pageInteger = Integer.valueOf(pageString);
+        Integer limitInteger = Integer.valueOf(limitString);
+        System.out.println(phoneString+" "+pageString +" "+ limitString);
+        List<Student> students = iStudentService.likeByName(phoneString,pageInteger,limitInteger);
+        for (Student student : students) {
+            System.out.println(student.toString());
+        }
+        String[] colums = { "id", "name", "phone","password", "className" };
+        String data = ObjtoLayJson.ListtoJson(students, colums);
+        System.out.println(data);
+        return data;
     }
 }

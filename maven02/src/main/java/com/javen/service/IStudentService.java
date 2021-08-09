@@ -1,6 +1,7 @@
 package com.javen.service;
 
 import com.javen.model.Student;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface IStudentService {
     Integer delete(Integer id);
 
     Integer update(Student student);
+
+    List<Student> likeByName(@Param("value") String value, int pageIndex, int pageSize);   //查询
 }

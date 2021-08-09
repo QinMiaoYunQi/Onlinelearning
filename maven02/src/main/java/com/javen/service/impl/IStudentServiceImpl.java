@@ -35,4 +35,10 @@ public class IStudentServiceImpl implements IStudentService {
     public Integer update(Student student) {
         return this.studentDao.update(student);
     }
+
+    public List<Student> likeByName(String value, int pageInteger, int limitInteger) {
+        int pageIndex = (pageInteger-1) * limitInteger;
+        int pageSize = limitInteger;
+        return this.studentDao.likeByName(value,pageIndex,pageSize);
+    }
 }
