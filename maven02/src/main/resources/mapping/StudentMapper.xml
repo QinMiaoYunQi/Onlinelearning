@@ -21,8 +21,8 @@
     <update id="update" parameterType="com.javen.model.Student">
         update student set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
     </update>
-    <select id="likeByName" resultType="com.javen.model.Student" parameterType="java.lang.String">
-        select * from student where name like '%${value}%'
+    <select id="likeByPhone" resultType="com.javen.model.Student" parameterType="java.lang.String">
+        select * from student where phone like '%${value}%'
     </select>
     <select id="SelectCount"  resultType="java.lang.Integer" >
         SELECT count(*) FROM student;

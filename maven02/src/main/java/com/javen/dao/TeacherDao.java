@@ -10,13 +10,15 @@ public interface TeacherDao {
 
     public Teacher selectById(int id);
 
+    public Teacher selectByPhone(@Param("phone") String phone);
+
     public int delete(Integer id);
 
     public int insert(Teacher teacher);
 
     public int update(Teacher teacher);
 
-    public List<Teacher> likeByName(@Param("value") String value, int pageIndex, int pageSize);
+    public List<Teacher> likeByPhone(@Param("value") String value, int pageIndex, int pageSize);
 
     int getCount(String name);
 

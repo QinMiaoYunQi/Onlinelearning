@@ -3,7 +3,9 @@ package com.javen.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +36,7 @@ public class LoginController {
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login(HttpServletRequest request) {
+	public String login(HttpServletRequest request, HttpServletResponse response) {
 		String phone = request.getParameter("phone");
 		String password = request.getParameter("password");
 		String typeString = request.getParameter("type");
@@ -45,6 +47,22 @@ public class LoginController {
 		login.setType(type);
 		System.out.println(phone + " " + password + " " + type);
 		if (loginService.ifLogin(login, request)) {
+			Cookie ck1 = new Cookie("phone", phone);
+			Cookie ck2 = new Cookie("password", password);
+
+			//设置cookie有效期 3 天
+			ck1.setMaxAge(3*24*60);
+			ck2.setMaxAge(3*24*60);
+
+			ck1.setPath("/");
+			ck2.setPath("/");
+
+			//将cookie保存到用户端
+			response.addCookie(ck1);
+			response.addCookie(ck2);
+
+			System.out.println(ck1.getValue());
+			System.out.println(ck2.getValue());
 			if (type == 1) {
 				return "{\"message\":\"管理员\"}";
 			} else if (type == 0) {
@@ -52,7 +70,7 @@ public class LoginController {
 			} else if (type == 2) {
 				return "{\"message\":\"老师\"}";
 			}
-			;
+
 		}
 			return "{\"data\":\"登录失败\"}";
 

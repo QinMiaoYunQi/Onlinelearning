@@ -18,7 +18,7 @@ public interface IStudentService {
 
     public int update(Student student);
 
-    public List<Student> likeByName(@Param("value") String value, int pageIndex, int pageSize);
+    public List<Student> likeByPhone(@Param("value") String value, int pageIndex, int pageSize);
 
 
     int SelectCount();

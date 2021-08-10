@@ -21,13 +21,18 @@
     <update id="update" parameterType="com.javen.model.Teacher">
         update teacher set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
     </update>
-    <select id="likeByName" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
-        select * from teacher where name like '%${value}%'
+    <select id="likeByPhone" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
+        select * from teacher where phone like '%${value}%'
     </select>
     <select id="SelectCount"  resultType="java.lang.Integer" >
         SELECT count(*) FROM teacher;
     </select>
     <select id="getCount"  resultType="java.lang.Integer"  parameterType="java.lang.String" >
         SELECT count(*) FROM teacher where name like '%${value}%';
+    </select>
+    <select id="selectByPhone" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
+        select *
+        from teacher
+        where phone = #{phone}
     </select>
 </mapper>

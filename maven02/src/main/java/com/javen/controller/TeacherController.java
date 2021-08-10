@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -50,6 +51,17 @@ public class TeacherController {
     public Teacher selectById(){
         Teacher teacher = iTeacherService.selectById(3);
         return teacher;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/selectByPhone", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String selectByPhone(HttpServletRequest request) throws Exception {
+        String phone = request.getParameter("phone");
+        System.out.println("phone:"+phone);
+        Teacher teacher = iTeacherService.selectByPhone(phone);
+        String[] colums = { "id", "name", "phone","password", "className" };
+        String data = ObjtoLayJson.toJson(teacher, colums);
+        System.out.println(data);
+        return data;
     }
 
     @ResponseBody
@@ -127,16 +139,16 @@ public class TeacherController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/likeByName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public String likeByName(HttpServletRequest request) throws Exception {
-        String name = request.getParameter("name");
+    @RequestMapping(value = "/likeByPhone", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String likeByPhone(HttpServletRequest request) throws Exception {
+        String phone = request.getParameter("phone");
         String pageString = request.getParameter("page");
         String limitString = request.getParameter("limit");
         Integer pageInteger = Integer.valueOf(pageString);
         Integer limitInteger = Integer.valueOf(limitString);
         System.out.println(pageString +" "+ limitString);
-        System.out.println("name:"+name);
-        List<Teacher> teachers = iTeacherService.likeByName(name,pageInteger,limitInteger);
+        System.out.println("phone:"+phone);
+        List<Teacher> teachers = iTeacherService.likeByPhone(phone,pageInteger,limitInteger);
         for (Teacher teacher : teachers) {
             System.out.println(teacher.toString());
         }

@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>青城博雅-新世纪</title>
     <link rel="stylesheet" href="../sources/layui/css/layui.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../sources/js/cookie.js"></script>
     <script src="../sources/layui/layui.js" charset="utf-8"></script>
 </head>
-<body class="layui-layout-body">
+<body class="layui-layout-body" onload="get()">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">在线学习平台——管理员端</div>
+        <div class="layui-logo">在线学习平台——教师端</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -50,6 +52,8 @@
                         <dd><a data-url="teacherState" data-id="11" data-title="教师状态管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">教师状态管理</a></dd>
                         <dd><a data-url="studentMessage" data-id="22" data-title="学生信息管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">学生信息管理</a></dd>
                         <dd><a data-url="fileContent" data-id="33" data-title="课件管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">课件管理</a></dd>
+                        <dd><a data-url="topic" data-id="44" data-title="讨论话题"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">讨论话题</a></dd>
+                        <dd><a data-url="dailyOperation" data-id="55" data-title="每日作业"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">每日作业</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -83,6 +87,26 @@
 </div>
 <script src="../sources/layui/layui.js"></script>
 <script>
+    function get(){
+        var url="http://localhost:8080/maven02/teacher/selectByPhone";
+        $.ajax({
+            type:"get",
+            url:url,
+            data:{
+                "phone":getCookie("phone")
+            },
+            dataType:'JSON',
+            success: function(value){
+                console.log(value);
+                var data=value[3].rows.item;
+                setCookie("name",data[1].name,3*24*60);
+            },
+            error:function(XMLHttpRequest,textStatus,errorThrown){
+                alert(typeof(ferrorThrown));
+            }
+        });
+    }
+
     //JavaScript代码区域
     //layui模块的使用
     layui.use('element', function() {

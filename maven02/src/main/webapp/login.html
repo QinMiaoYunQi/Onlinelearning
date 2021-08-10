@@ -4,6 +4,7 @@
 	<title>登录页面</title>
 	<link rel="stylesheet" href="sources/css/mystyle.css" />
 	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../sources/js/cookie.js"></script>
 	<script src="sources/js/jquery.js"></script>
 </head>
 <body class="body_bg">
@@ -46,7 +47,6 @@
 			success: function (value)//success、error代表是否返回成功
 			{
 				console.log(value.data);
-
 				if(value.message=="学生"){
 					window.location.href="http://localhost:8080/maven02/html/Student.html";
 				}else if(value.message=="管理员"){

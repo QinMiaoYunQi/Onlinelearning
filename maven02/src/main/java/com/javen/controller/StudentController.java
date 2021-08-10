@@ -119,16 +119,16 @@ public class StudentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/likeByName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public String likeByName(HttpServletRequest request) throws Exception {
-        String name = request.getParameter("name");
+    @RequestMapping(value = "/likeByPhone", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String likeByPhone(HttpServletRequest request) throws Exception {
+        String phone = request.getParameter("phone");
         String pageString = request.getParameter("page");
         String limitString = request.getParameter("limit");
         Integer pageInteger = Integer.valueOf(pageString);
         Integer limitInteger = Integer.valueOf(limitString);
         System.out.println(pageString +" "+ limitString);
-        System.out.println("name:"+name);
-        List<Student> students = iStudentService.likeByName(name,pageInteger,limitInteger);
+        System.out.println("phone:"+phone);
+        List<Student> students = iStudentService.likeByPhone(phone,pageInteger,limitInteger);
         for (Student student : students) {
             System.out.println(student.toString());
         }

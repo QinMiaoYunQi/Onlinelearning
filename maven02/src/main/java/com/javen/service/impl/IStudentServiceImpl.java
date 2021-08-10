@@ -2,7 +2,6 @@ package com.javen.service.impl;
 
 import com.javen.dao.StudentDao;
 import com.javen.model.Student;
-import com.javen.model.Teacher;
 import com.javen.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +40,10 @@ public class IStudentServiceImpl implements IStudentService {
 
 
 
-    public List<Student> likeByName(String value, int pageInteger, int limitInteger) {
+    public List<Student> likeByPhone(String value, int pageInteger, int limitInteger) {
         int pageIndex = (pageInteger-1) * limitInteger;
         int pageSize = limitInteger;
-        return this.StudentDao.likeByName(value,pageIndex,pageSize);
+        return this.StudentDao.likeByPhone(value,pageIndex,pageSize);
     }
 
 

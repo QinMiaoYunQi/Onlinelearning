@@ -59,8 +59,6 @@ public class ILoginServiceImpl implements ILoginService{
 
 		List<Login> logins = loginDao.login(login);
 		if (logins.size() == 1){
-			HttpSession session = request.getSession();
-			session.setAttribute("logins",logins.get(0));
 			return true;
 		}else {
 			return false;
