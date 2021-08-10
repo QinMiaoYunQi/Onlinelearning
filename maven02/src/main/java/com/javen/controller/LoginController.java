@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -44,10 +45,18 @@ public class LoginController {
 	public String student(HttpServletRequest request,Model model){
 		return "student";
 	}
+	@RequestMapping(value="/TeacherLeave", method=RequestMethod.GET)   //跳转到教师请假
+	public String TeacherLeave(HttpServletRequest request,Model model){
+		return "TeacherLeave";
+	}
+	@RequestMapping(value="/fileContent", method=RequestMethod.GET)   //跳转到课件管理
+	public String fileContent(HttpServletRequest request,Model model){
+		return "fileContent";
+	}
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(HttpServletRequest request){
+	public String login(HttpServletRequest request, HttpServletResponse response){
     	String phoneString = request.getParameter("phone");
     	String passwordString = request.getParameter("password");
     	String typeString=request.getParameter("type");
@@ -57,7 +66,7 @@ public class LoginController {
 		aaa.setPhone(phoneString);
 		aaa.setPassword(passwordString);
 		aaa.setType(typeInt);
-		if (loginService.ifLogin(aaa,request)){
+		if (loginService.ifLogin(aaa,request,response)){
 			if (typeInt==0) {
 				return "{\"data\":\"管理员账号\"}";
 			}else if (typeInt==1){

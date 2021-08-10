@@ -13,4 +13,7 @@ public interface LeaveDao {
 
     int update(Leave leave);
 
+    List<Leave> selectPhone(Leave leave);
+
+    Integer insert(Leave leave);
 }

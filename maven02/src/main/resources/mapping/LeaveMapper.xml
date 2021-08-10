@@ -20,9 +20,15 @@
         update holiday set result = #{result} where id = #{id}
     </update>
 
-    <!--<insert id="insert" parameterType="com.javen.model.Teacher">
-        insert into teacher (name,phone,password,className) values (#{name},#{phone},#{password},#{className})
+    <select id="selectPhone" resultType="com.javen.model.Leave" parameterType="com.javen.model.Leave">
+        select * from holiday where phone=#{phone}
+    </select>
+
+    <insert id="insert" parameterType="com.javen.model.Leave">
+        insert into holiday (name,phone,data,reason,result) values (#{name},#{phone},#{data},#{reason},#{result})
     </insert>
+
+    <!--
 
     <delete id="delete" parameterType="java.lang.Integer">
         delete from teacher where id = #{id}

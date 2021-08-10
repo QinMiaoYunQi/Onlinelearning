@@ -6,6 +6,7 @@ import com.javen.model.Login;
 import com.javen.model.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 public interface ILoginService {
@@ -21,7 +22,7 @@ public interface ILoginService {
 
 	 public List<Login> selectAll(int pageInteger,int limitInteger);
 
-	 Boolean ifLogin(Login login,HttpServletRequest request);
+	 Boolean ifLogin(Login login, HttpServletRequest request, HttpServletResponse response);
 
 	 public int SelectCount();
 

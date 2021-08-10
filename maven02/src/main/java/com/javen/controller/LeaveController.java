@@ -2,6 +2,7 @@ package com.javen.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.javen.model.Leave;
+import com.javen.model.Student;
 import com.javen.model.Teacher;
 import com.javen.service.ILeaveService;
 import com.javen.util.ObjtoLayJson;
@@ -88,6 +89,55 @@ public class LeaveController {
         System.out.println(json);
         return json;
     }
+
+    @ResponseBody
+    @RequestMapping(value="/selectPhone", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String selectPhone(HttpServletRequest request) throws Exception   //教师端查看自己的请假信息
+    {
+        String pageString = request.getParameter("page");
+        String limitString = request.getParameter("limit");
+        String phoneString=request.getParameter("phone");
+        Integer pageInteger = Integer.valueOf(pageString);
+        Integer limitInteger = Integer.valueOf(limitString);
+        System.out.println(pageInteger +" "+ limitInteger+" 电话："+phoneString);
+        Leave aaa=new Leave();
+        aaa.setPhone(phoneString);
+        List<Leave> listsList = iLeaveService.selectPhone(aaa);
+        String[] colums = { "id", "name", "phone","data", "reason","result" };
+        String data = ObjtoLayJson.ListtoJson(listsList, colums);
+        System.out.println(data);
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/insertLeave",method = RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String insertLeave(HttpServletRequest request)   //插入请假信息
+    {
+        String nameString=request.getParameter("name");
+        String phoneString=request.getParameter("phone");
+        String dataString = request.getParameter("data");
+        String reasonString = request.getParameter("reason");
+        String resultString="待管理员审批";
+        System.out.println(nameString+" "+phoneString+" "+dataString+" "+reasonString+" "+resultString);
+        System.out.println("-------------------------");
+        Leave leave = new Leave();
+        leave.setName(nameString);
+        leave.setPhone(phoneString);
+        leave.setData(dataString);
+        leave.setReason(reasonString);
+        leave.setResult(resultString);
+        int count = iLeaveService.insert(leave);
+        String json="";
+        if(count==0) {
+            json="{\"count\":\"200\",\"message\":\"添加失败\"}";
+        }else{
+            json="{\"count\":\"200\",\"message\":\"添加成功\"}";
+        }
+        System.out.println(json);
+        return json;
+    }
+
+
 
 
 }

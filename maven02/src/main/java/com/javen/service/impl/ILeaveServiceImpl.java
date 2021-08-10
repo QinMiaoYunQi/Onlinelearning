@@ -30,4 +30,12 @@ public class ILeaveServiceImpl implements ILeaveService {
     public List<Leave> selectLimit(Leave leave) {
         return this.leaveDao.selectLimit(leave);
     }
+
+    public List<Leave> selectPhone(Leave leave) {
+        return this.leaveDao.selectPhone(leave);
+    }
+
+    public int insert(Leave leave) {
+        return this.leaveDao.insert(leave);
+    }
 }

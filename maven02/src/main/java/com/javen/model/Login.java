@@ -3,7 +3,7 @@ package com.javen.model;
 public class Login {
 	
 	private Integer id;
-	private String phone;
+	public String phone;
 	private String password;
 	private Integer type;
 

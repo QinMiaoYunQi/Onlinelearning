@@ -3,7 +3,9 @@ package com.javen.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.javen.model.User;
@@ -57,12 +59,14 @@ public class ILoginServiceImpl implements ILoginService{
 	}
 
 
-	public Boolean ifLogin(Login login,HttpServletRequest request) {
-
+	public Boolean ifLogin(Login login, HttpServletRequest request, HttpServletResponse response) {
 		List<Login> aaa = loginDao.login(login);
 		if (aaa.size() == 1){
 			HttpSession session = request.getSession();
 			session.setAttribute("phone",aaa.get(0));
+
+			Cookie phone=new Cookie("phone",aaa.get(0).getPhone());
+			response.addCookie(phone);
 			return true;
 		}else {
 			return false;

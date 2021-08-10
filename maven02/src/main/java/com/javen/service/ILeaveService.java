@@ -12,4 +12,8 @@ public interface ILeaveService {
     int update(Leave leave);
 
     List<Leave> selectLimit(Leave leave);
+
+    List<Leave> selectPhone(Leave leave);
+
+    int insert(Leave leave);
 }

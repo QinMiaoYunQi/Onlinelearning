@@ -47,7 +47,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">信息管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a data-url="content" data-id="11" data-title="教师状态管理-请假"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">教师状态管理-请假</a></dd>
+                        <dd><a data-url="TeacherLeave" data-id="11" data-title="教师状态管理-请假"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">教师状态管理-请假</a></dd>
                         <dd><a data-url="aaa" data-id="22" data-title="学生信息管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">学生信息管理</a></dd>
                         <dd><a data-url="fileContent" data-id="33" data-title="课件管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">课件管理</a></dd>
                         <dd><a data-url="111" data-id="44" data-title="查看讨论话题"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">查看讨论话题</a></dd>
@@ -99,7 +99,7 @@
                 //关于tabAdd的方法所传入的参数可看layui的开发文档中基础方法部分
                 element.tabAdd('demo', {
                     title: name,
-                    content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="http://localhost:8080/Onlinelearning/html/'+url+'.html" style="width:100%;height:99%;"></iframe>',
+                    content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="http://localhost:8080/Onlinelearning/login/'+url+'" style="width:100%;height:99%;"></iframe>',
                     id: id //规定好的id
                 })
                 CustomRightClick(id); //给tab绑定右击事件
