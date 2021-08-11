@@ -3,6 +3,7 @@ package com.javen.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -57,6 +58,10 @@ public class LoginController {
 	public String homework(HttpServletRequest request,Model model){
 		return "homework";
 	}
+	@RequestMapping(value="/Correct", method=RequestMethod.GET)   //跳转到教师评分管理
+	public String Correct(HttpServletRequest request,Model model){
+		return "Correct";
+	}
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -81,6 +86,20 @@ public class LoginController {
 		}else {
 			return  "{\"data\":\"账号密码有误\"}";
 		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/CookieName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+	public String CookieName(HttpServletRequest request, HttpServletResponse response) throws Exception   //显示homework表中所有作业的信息
+	{
+		String nameString = request.getParameter("name");
+		System.out.println("作业名： "+nameString);
+		Cookie workName=new Cookie("workName",nameString);
+		response.addCookie(workName);
+		System.out.println(workName.getName());
+		String json="";
+		json="{\"count\":\"200\",\"message\":\"Cookie设置成功\"}";
+		return json;
 	}
     
     /*//返回字符串

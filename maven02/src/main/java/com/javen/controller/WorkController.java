@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -33,7 +35,7 @@ public class WorkController {
 
     @ResponseBody
     @RequestMapping(value="/selectAll", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public String selectAll(HttpServletRequest request) throws Exception   //显示学生表中所有学生的信息
+    public String selectAll(HttpServletRequest request) throws Exception   //显示homework表中所有作业的信息
     {
         String pageString = request.getParameter("page");
         String limitString = request.getParameter("limit");
@@ -45,4 +47,5 @@ public class WorkController {
         String data = ObjtoLayJson.ListtoJson(listsList, colums);
         return data;
     }
+
 }

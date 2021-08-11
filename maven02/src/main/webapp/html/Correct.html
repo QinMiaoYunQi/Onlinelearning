@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>每日作业管理界面</title>
+    <title>教师批改作业界面</title>
 
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -96,7 +96,8 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">评分</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">评分</a>
 </script>
 
 
@@ -109,7 +110,7 @@
         var pagecount;
         getPage();
         function getPage(){
-            var url="http://localhost:8080/Onlinelearning/homework/SelectCount";
+            var url="http://localhost:8080/Onlinelearning/correct/SelectCount";
             $.ajax({
                 type:"get",
                 url:url,
@@ -127,7 +128,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/homework/selectAll'
+            ,url:'http://localhost:8080/Onlinelearning/correct/selectAll?workName='+getCookie("workName")
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -137,10 +138,11 @@
             ,title: '用户数据表'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                /*,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}*/
-                ,{field:'name', title:'作业名', width:120, edit: 'text'}
-                ,{field:'className', title:'班级', width:200, edit: 'text'}
-                ,{field:'data', title:'创建时间', width:200, edit: 'text'}
+                ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                ,{field:'workName', title:'作业名', width:120, edit: 'text'}
+                ,{field:'studentName', title:'学生名', width:200, edit: 'text'}
+                ,{field:'content', title:'内容', width:200, edit: 'text'}
+                ,{field:'point', title:'分数', width:200, edit: 'text', sort: true}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: true
@@ -157,6 +159,28 @@
                     "rows": res[3].rows.item  //解析数据列表
                 };
             }
+        });
+
+        active = {
+            reload: function(){
+                //执行重载
+                table.reload('test', {
+                    url: 'http://localhost:8080/Onlinelearning/teacher/likeByName?phone='+$("#demoReload").val()
+                    ,methods:"get"
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                        }
+                    }
+                }, 'data');
+            }
+        };
+
+        layui.$('.demoTable .layui-btn').on('click', function(){
+            var type = layui.$(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
 
 //引入from表单
@@ -265,8 +289,12 @@
             var data = obj.data;
             //console.log(obj)
             if(obj.event === 'del'){
-                //在这里写删除方法
-                deleteById(data.name);
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    //在这里写删除方法
+                    deleteById(data.id);
+                    layer.close(index);
+                });
             } else if(obj.event === 'edit'){
                 form.val("updata", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
                     "id": data.id // "name": "value"
@@ -319,16 +347,16 @@
 //删除
         function deleteById(index){
 
-            var url = "http://localhost:8080/Onlinelearning/login/CookieName";
+            var url = "http://localhost:8080/Onlinelearning/teacher/delete";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
-                data: {"name":index}, //data代表我们的数据  key -value类型的数据
+                data: {"id":index}, //data代表我们的数据  key -value类型的数据
                 dataType:'JSON',
                 async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
                 success: function (res)
-                {if(res.message=="Cookie设置成功") {window.location.href="http://localhost:8080/Onlinelearning/login/Correct";}
-                else{layer.msg("Cookie设置失败");}
+                {if(res.message=="删除成功"){layer.msg("删除成功");}
+                else{layer.msg("删除失败");}
                 },
                 error:function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(typeof(errorThrown));
