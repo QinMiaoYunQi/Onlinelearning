@@ -5,7 +5,7 @@ public class Correct {
     private String workName;
     private String studentName;
     private String content;
-    private Integer point;
+    private String point;
 
     public Integer getId() {
         return id;
@@ -39,11 +39,11 @@ public class Correct {
         this.content = content;
     }
 
-    public Integer getPoint() {
+    public String getPoint() {
         return point;
     }
 
-    public void setPoint(Integer point) {
+    public void setPoint(String point) {
         this.point = point;
     }
 
@@ -54,7 +54,7 @@ public class Correct {
                 ", workName='" + workName + '\'' +
                 ", studentName='" + studentName + '\'' +
                 ", content='" + content + '\'' +
-                ", point=" + point +
+                ", point='" + point + '\'' +
                 '}';
     }
 }

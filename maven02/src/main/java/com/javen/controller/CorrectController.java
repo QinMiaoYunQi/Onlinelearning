@@ -59,4 +59,27 @@ public class CorrectController {
         String data = ObjtoLayJson.ListtoJson(listsList, colums);
         return data;
     }
+
+    @ResponseBody
+    @RequestMapping(value="update", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String update(HttpServletRequest request)     //修改功能
+    {
+        String idString = request.getParameter("id");
+        Integer idInteger = Integer.valueOf(idString);
+        String pointString = request.getParameter("point");
+        System.out.println(idInteger+" "+pointString);
+        System.out.println("...............");
+        Correct correct = new Correct();
+        correct.setId(idInteger);
+        correct.setPoint(pointString);
+        int count = iCorrectService.update(correct);
+        String json="";
+        if(count==0) {
+            json="{\"count\":\"200\",\"message\":\"评分失败\"}";
+        }else {
+            json="{\"count\":\"200\",\"message\":\"评分成功\"}";
+        }
+        System.out.println(json);
+        return json;
+    }
 }

@@ -23,5 +23,9 @@ public class ICorrectServiceImpl implements ICorrectService {
         return this.correctDao.selectAll(params);
     }
 
+    public Integer update(Correct correct) {
+        return this.correctDao.update(correct);
+    }
+
 
 }

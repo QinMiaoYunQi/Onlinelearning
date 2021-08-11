@@ -9,4 +9,6 @@ public interface ICorrectService {
     Integer SelectCount();
 
     List<Correct> selectAll(Map<String, Object> params);
+
+    Integer update(Correct correct);
 }

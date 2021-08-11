@@ -10,4 +10,8 @@
         select * from point where workName=#{title}
         limit #{start},#{limit}
     </select>
+
+    <update id="update" parameterType="com.javen.model.Correct">
+        update point set point = #{point} where id = #{id}
+    </update>
 </mapper>

@@ -9,4 +9,6 @@ public interface CorrectDao {
     Integer SelectCount();
 
     List<Correct> selectAll(Map<String, Object> params);
+
+    Integer update(Correct correct);
 }
