@@ -53,6 +53,10 @@ public class LoginController {
 	public String fileContent(HttpServletRequest request,Model model){
 		return "fileContent";
 	}
+	@RequestMapping(value="/homework", method=RequestMethod.GET)   //跳转到每日作业管理
+	public String homework(HttpServletRequest request,Model model){
+		return "homework";
+	}
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
