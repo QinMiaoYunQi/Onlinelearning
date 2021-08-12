@@ -15,7 +15,10 @@
     <select id="login" resultType="com.javen.model.Login" parameterType="com.javen.model.Login">
         select * from login where phone = #{phone} and password = #{password} and type =#{type}
     </select>
-  
+
+    <select id="StudentLogin" resultType="com.javen.model.Student" parameterType="com.javen.model.Login">
+        select * from student where phone = #{phone} and password = #{password}
+    </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select 

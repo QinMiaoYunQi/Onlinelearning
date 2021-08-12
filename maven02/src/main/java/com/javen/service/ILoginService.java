@@ -27,5 +27,5 @@ public interface ILoginService {
 	 public int SelectCount();
 
 
-	 
+    Boolean StudentLogin(Login aaa, HttpServletRequest request, HttpServletResponse response);
 }

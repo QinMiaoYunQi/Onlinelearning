@@ -62,6 +62,10 @@ public class LoginController {
 	public String Correct(HttpServletRequest request,Model model){
 		return "Correct";
 	}
+	@RequestMapping(value="/DoWork", method=RequestMethod.GET)   //跳转到学生写作业界面
+	public String DoWork(HttpServletRequest request,Model model){
+		return "DoWork";
+	}
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -75,16 +79,26 @@ public class LoginController {
 		aaa.setPhone(phoneString);
 		aaa.setPassword(passwordString);
 		aaa.setType(typeInt);
-		if (loginService.ifLogin(aaa,request,response)){
-			if (typeInt==0) {
-				return "{\"data\":\"管理员账号\"}";
-			}else if (typeInt==1){
-				return "{\"data\":\"教师账号\"}";
-			} else{
+		if(typeInt==2)
+		{
+			if (loginService.StudentLogin(aaa,request,response)){
 				return "{\"data\":\"学生账号\"}";
+			}else {
+				return  "{\"data\":\"账号密码有误\"}";
+			}
+		}else if (typeInt==0)
+		{
+			if (loginService.ifLogin(aaa,request,response)){
+				return "{\"data\":\"管理员账号\"}";
+			}else {
+				return  "{\"data\":\"账号密码有误\"}";
 			}
 		}else {
-			return  "{\"data\":\"账号密码有误\"}";
+			if (loginService.ifLogin(aaa,request,response)){
+				return "{\"data\":\"教师账号\"}";
+			}else {
+				return  "{\"data\":\"账号密码有误\"}";
+			}
 		}
 	}
 

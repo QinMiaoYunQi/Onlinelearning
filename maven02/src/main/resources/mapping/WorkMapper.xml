@@ -10,4 +10,13 @@
         select * from homework
         limit #{param1},#{param2}
     </select>
+
+    <select id="selectClass" resultType="com.javen.model.Work" parameterType="java.util.Map">
+        select * from homework where className=#{title}
+        limit #{start},#{limit}
+    </select>
+
+    <select id="SelectCountClass"  resultType="java.lang.Integer" parameterType="com.javen.model.Work">
+        SELECT count(*) FROM homework where className=#{className};
+    </select>
 </mapper>

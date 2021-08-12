@@ -1,6 +1,7 @@
 package com.javen.dao;
 
 import com.javen.model.Login;
+import com.javen.model.Student;
 import com.javen.model.User;
 
 
@@ -23,4 +24,5 @@ public interface LoginDao {
     public int SelectCount();
 
 
+    List<Student> StudentLogin(Login aaa);
 }

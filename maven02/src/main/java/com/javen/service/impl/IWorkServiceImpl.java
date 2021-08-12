@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IWorkServiceImpl implements IWorkService {
@@ -22,5 +23,13 @@ public class IWorkServiceImpl implements IWorkService {
         int Index = (pageInteger-1) * limitInteger;
         int Size = limitInteger;
         return this.workDao.selectAll(Index, Size);
+    }
+
+    public List<Work> selectClass(Map<String, Object> params) {
+        return this.workDao.selectClass(params);
+    }
+
+    public Integer SelectCountClass(Work className) {
+        return this.workDao.SelectCountClass(className);
     }
 }
