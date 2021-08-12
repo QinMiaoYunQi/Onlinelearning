@@ -23,4 +23,6 @@ public interface TeacherDao {
     int getCount(String name);
 
     int SelectCount();
+
+    public List<com.javen.model.Teacher> GetTeacher(String className);
 }

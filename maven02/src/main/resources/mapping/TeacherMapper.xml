@@ -35,4 +35,10 @@
         from teacher
         where phone = #{phone}
     </select>
+    <select id="GetTeacher" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
+        select
+            *
+        from teacher
+        where className = #{className}
+    </select>
 </mapper>

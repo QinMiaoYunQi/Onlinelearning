@@ -50,6 +50,10 @@ public class ITeacherServiceImpl implements ITeacherService {
         return this.teacherDao.SelectCount();
     }
 
+    public List<Teacher> GetTeacher(String className) {
+        return this.teacherDao.GetTeacher(className);
+    }
+
     public int getCount(String name) {
         // TODO Auto-generated method stub
         return this.teacherDao.getCount(name);
@@ -58,5 +62,6 @@ public class ITeacherServiceImpl implements ITeacherService {
     public Teacher selectByPhone(String phone){
         return this.teacherDao.selectByPhone(phone);
     };
+
 
 }

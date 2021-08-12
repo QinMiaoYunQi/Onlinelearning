@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="../sources/js/cookie.js"></script>
     <link rel="stylesheet" href="../sources/layui/css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
@@ -58,7 +59,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/maven02/file/show'
+            ,url:'http://localhost:8080/maven02/file/show?className='+getCookie("className")
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -129,7 +130,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/maven02/file/show'
+                url: 'http://localhost:8080/maven02/file/show?className='+getCookie("className")
             });
         }
 

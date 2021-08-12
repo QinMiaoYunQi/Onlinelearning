@@ -8,4 +8,5 @@ import java.util.Map;
 public interface IHomeworkService {
     int SelectCount();
     public List<Homework> selectAll(Map map);
+    int insert(Homework homework);
 }

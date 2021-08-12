@@ -1,5 +1,6 @@
 package com.javen.controller;
 
+import com.javen.model.Class;
 import com.javen.model.Teacher;
 import com.javen.service.ITeacherService;
 import com.javen.util.ObjtoLayJson;
@@ -156,6 +157,18 @@ public class TeacherController {
         String data = ObjtoLayJson.ListtoJson(teachers, colums);
         System.out.println(data);
         return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="GetTeacher", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String GetTeacher(HttpServletRequest request) throws Exception {
+        String className = request.getParameter("className");
+        List<Teacher> listsList = iTeacherService.GetTeacher(className);
+        System.out.println("className:"+className);
+        String[] colums = { "id", "name", "phone","password", "className" };
+        String json = ObjtoLayJson.ListtoJson(listsList, colums);
+        System.out.println(json);
+        return json;
     }
 
 }

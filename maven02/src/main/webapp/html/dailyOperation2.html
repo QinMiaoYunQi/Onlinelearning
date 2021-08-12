@@ -74,7 +74,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/maven02/homework/selectAll'
+            ,url:'http://localhost:8080/maven02/homework/selectAll?teacherName='+getCookie("teacherName")+'&className='+getCookie("className")
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -116,7 +116,7 @@
             form.on('submit(demo3)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/maven02/jobName/doJob?studentName='+getCookie("name")+'&jobName='+getCookie("jobName"),
+                    url:'http://localhost:8080/maven02/jobName/doJob?studentName='+getCookie("teacherName")+'&jobName='+getCookie("jobName"),
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -207,7 +207,7 @@ function doJob() {
     });
     //刷新页面
     layui.table.reload('test', {
-        url:'http://localhost:8080/maven02/homework/selectAll'
+        url:'http://localhost:8080/maven02/homework/selectAll?teacherName='+getCookie("teacherName")+'&className='+getCookie("className")
     });
 }
 </script>

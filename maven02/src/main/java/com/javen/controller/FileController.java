@@ -26,8 +26,9 @@ public class FileController {
 
     @RequestMapping(value="/show",method= RequestMethod.GET)
     @ResponseBody
-    public String showfile() throws Exception {
-        List<com.javen.model.File> files = iFileService.show();
+    public String showfile(HttpServletRequest request) throws Exception {
+        String className = request.getParameter("className");
+        List<com.javen.model.File> files = iFileService.show(className);
         String[] colums = {"id","fileName","time","className"};
         String data = ObjtoLayJson.ListtoJson(files,colums);
         System.out.println(data);

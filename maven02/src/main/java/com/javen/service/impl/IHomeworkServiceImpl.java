@@ -22,4 +22,8 @@ public class IHomeworkServiceImpl implements IHomeworkService {
         return this.homeworkDao.selectAll(map);
     }
 
+    public int insert(Homework homework) {
+        return this.homeworkDao.insert(homework);
+    }
+
 }

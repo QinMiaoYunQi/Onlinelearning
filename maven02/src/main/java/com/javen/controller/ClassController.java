@@ -112,13 +112,5 @@ public class ClassController {
         return json;
     }
 
-    @ResponseBody
-    @RequestMapping(value="GetTeacher", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
-    public String GetTeacher() throws Exception {
-        List<Class> listsList = iClassService.selectAll(1,10);
-        String[] colums= {"id", "className", "foundTime","teacherName"};
-        String json = ObjtoLayJson.ListtoJson(listsList, colums);
-        System.out.println(json);
-        return json;
-    }
+
 }

@@ -10,8 +10,9 @@
         select
             *
         from homework
+        where className=#{className}
         <if test="teacherName != null and teacherName != ''">
-            where teacherName = #{teacherName}
+          and teacherName = #{teacherName}
         </if>
          ORDER BY date desc
         limit #{pageIndex},#{pageSize}
@@ -19,4 +20,7 @@
     <select id="selectById" resultType="com.javen.model.Homework" parameterType="int">
         select * from homework where id = #{id}
     </select>
+    <insert id="insert" parameterType="com.javen.model.Homework">
+        insert into homework (jobName,className,date,teacherName) values (#{jobName},#{className},#{date},#{teacherName})
+    </insert>
 </mapper>

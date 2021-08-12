@@ -99,7 +99,7 @@
             success: function(value){
                 console.log(value);
                 var data=value[3].rows.item;
-                setCookie("name",data[1].name,3*24*60);
+                setCookie("teacherName",data[1].name,3*24*60);
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){
                 alert(typeof(ferrorThrown));

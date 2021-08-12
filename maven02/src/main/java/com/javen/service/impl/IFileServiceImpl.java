@@ -18,8 +18,8 @@ public class IFileServiceImpl implements IFileService {
         return this.fileDao.insert(file);
     }
 
-    public List<File> show() {
-        return this.fileDao.show();
+    public List<File> show(String className) {
+        return this.fileDao.show(className);
     }
     public List<File> likeByFileName(String value, int pageInteger, int limitInteger) {
         int pageIndex = (pageInteger-1) * limitInteger;

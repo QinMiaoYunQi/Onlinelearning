@@ -14,7 +14,18 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-
+<!-- 添加的from表单 -->
+<form class="layui-form" action="" id="addForm" style="display:none" lay-filter="add" enctype="multipart/form-data">
+    <div class="layui-form-item">
+        <label class="layui-form-label">作业名</label>
+        <div class="layui-input-block">
+            <input type="text" name="jobName" lay-verify="jobName" autocomplete="off" placeholder="作业名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo2" id="addsub">提交</button>
+    </div>
+</form>
 
 
 
@@ -23,6 +34,7 @@
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">留作业</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
@@ -62,7 +74,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/maven02/homework/selectAll?teacherName='+getCookie("name")
+            ,url:'http://localhost:8080/maven02/homework/selectAll?teacherName='+getCookie("teacherName")+'&className='+getCookie("className")
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -95,7 +107,41 @@
             }
         });
 
+//引入from表单
+        layui.use(['form', 'laydate'], function() {
+            form = layui.form;
+            form.render();
 
+            //表单取值
+            form.on('submit(demo2)', function (data) {
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url: 'http://localhost:8080/maven02/homework/insert?className='+getCookie("className")+'&teacherName='+getCookie("teacherName"),
+                    method: 'get',
+                    data: data.field,
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.status = '0') {
+                            console.log(res);
+                            layer.msg("留作业成功");
+                            $("#addForm")[0].reset();
+                            form.render();
+                            getPage();
+                        } else {
+                            layer.msg("留作业失败");
+                            $("#addForm")[0].reset();
+                            form.render();
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg("网络错误");
+                        $("#addForm")[0].reset();
+                        form.render();
+                    }
+                });
+                layer.close(layer_index);
+            });
+        });
 
 
 
@@ -107,6 +153,9 @@
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
+                case 'add':
+                    add();
+                    break;
                 case 'getCheckData':
                     var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
@@ -137,6 +186,24 @@
         });
 
 
+        function add(){
+            layer_index= layer.open({
+                type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                title: "留作业", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
+                area: ['500px', '400px'], //所打开页面大小
+                content:$("#addForm"), //内容
+                //关闭操作
+                cancel: function(){
+                    layer.close(layer_index);
+                    $("#addForm")[0].reset();
+                    $('#demoe1').attr('src', "");
+                }
+            });
+            //刷新页面
+            table.reload('test', {
+                url: 'http://localhost:8080/maven02/homework/selectAll?teacherName='+getCookie("teacherName")+'&className='+getCookie("className")
+            });
+        }
 
 
     });

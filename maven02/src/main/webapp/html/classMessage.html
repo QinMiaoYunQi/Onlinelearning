@@ -118,7 +118,7 @@
     }
 
     function getTeacher(){
-        var url="http://localhost:8080/maven02/class/GetTeacher";
+        var url="http://localhost:8080/maven02/teacher/GetTeacher?className=无";
 
         $.ajax({
             type:"get",
@@ -128,6 +128,7 @@
             success: function(value){
                 console.log(value);
                 data=value[3].rows.item;
+                console.log(data);
                 Select(count,data);
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){
@@ -140,7 +141,7 @@
         var html ='<select id="teacherName" name="teacherName" lay-verify="teacherName"  class="layui-input" style=" position: relative;padding-left: 10px;width: 30%;height: 30px;line-height: 30px;border: 1px solid #d3d3d3;border-radius: 4px;background: #fff;color: #999;font-size: 14px;">'
         html+='<option value="">请选择一个任课老师</option>';
         for(var i=0;i<count;i++){
-            html+='<option value="'+data[i].teacherName+'">'+data[i].teacherName+'</option>';
+            html+='<option value="'+data[i].name+'">'+data[i].name+'</option>';
         }
         html+='</select>';
         $("#inf").empty().append(html);

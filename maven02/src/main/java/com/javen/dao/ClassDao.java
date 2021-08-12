@@ -18,5 +18,6 @@ public interface ClassDao {
 
 
 
+
     int SelectCount();
 }
