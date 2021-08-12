@@ -19,4 +19,8 @@
     <select id="SelectCountClass"  resultType="java.lang.Integer" parameterType="com.javen.model.Work">
         SELECT count(*) FROM homework where className=#{className};
     </select>
+
+    <insert id="insert" parameterType="com.javen.model.Correct">
+        insert into point (workName,studentName,content,point) values (#{workName},#{studentName},#{content},#{point})
+    </insert>
 </mapper>

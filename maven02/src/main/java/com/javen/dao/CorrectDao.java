@@ -11,4 +11,6 @@ public interface CorrectDao {
     List<Correct> selectAll(Map<String, Object> params);
 
     Integer update(Correct correct);
+
+    Integer insert(Correct correct);
 }

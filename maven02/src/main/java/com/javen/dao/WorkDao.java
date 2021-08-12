@@ -1,5 +1,6 @@
 package com.javen.dao;
 
+import com.javen.model.Correct;
 import com.javen.model.Work;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface WorkDao {
     List<Work> selectClass(Map<String, Object> params);
 
     Integer SelectCountClass(Work className);
+
+    Integer insert(Correct correct);
 }

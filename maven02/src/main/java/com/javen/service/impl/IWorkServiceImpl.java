@@ -2,6 +2,7 @@ package com.javen.service.impl;
 
 import com.javen.dao.TeacherDao;
 import com.javen.dao.WorkDao;
+import com.javen.model.Correct;
 import com.javen.model.Work;
 import com.javen.service.IWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,9 @@ public class IWorkServiceImpl implements IWorkService {
 
     public Integer SelectCountClass(Work className) {
         return this.workDao.SelectCountClass(className);
+    }
+
+    public Integer insert(Correct correct) {
+        return this.workDao.insert(correct);
     }
 }

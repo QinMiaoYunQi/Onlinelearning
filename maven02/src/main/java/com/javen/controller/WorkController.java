@@ -1,6 +1,7 @@
 package com.javen.controller;
 
 
+import com.javen.model.Correct;
 import com.javen.model.Teacher;
 import com.javen.model.Work;
 import com.javen.service.IWorkService;
@@ -88,6 +89,32 @@ public class WorkController {
         String[] colums = { "name", "className","data" };
         String data = ObjtoLayJson.ListtoJson(listsList, colums);
         return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="dowork", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String dowork(HttpServletRequest request)    //学生提交作业
+    {
+        String workNameString = request.getParameter("workName");
+        String studentNameString = request.getParameter("studentName");
+        String contentString = request.getParameter("content");
+        String pointString = "未批阅";
+        System.out.println(workNameString+" "+studentNameString+" "+contentString+" "+pointString);
+        System.out.println("-------------------------");
+        Correct correct = new Correct();
+        correct.setWorkName(workNameString);
+        correct.setStudentName(studentNameString);
+        correct.setContent(contentString);
+        correct.setPoint(pointString);
+        int count = iWorkService.insert(correct);
+        String json="";
+        if(count==0) {
+            json="{\"count\":\"200\",\"message\":\"添加失败\"}";
+        }else{
+            json="{\"count\":\"200\",\"message\":\"添加成功\"}";
+        }
+        System.out.println(json);
+        return json;
     }
 
 }

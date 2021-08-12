@@ -87,8 +87,10 @@ public class ILoginServiceImpl implements ILoginService{
 
 			Cookie phone=new Cookie("phone",xxx.get(0).getPhone());
 			Cookie className=new Cookie("className",xxx.get(0).getClassName());
+			Cookie studentName=new Cookie("studentName",xxx.get(0).getName());
 			response.addCookie(phone);
 			response.addCookie(className);
+			response.addCookie(studentName);
 			return true;
 		}else {
 			return false;
