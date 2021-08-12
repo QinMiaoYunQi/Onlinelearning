@@ -37,4 +37,8 @@ public class IWorkServiceImpl implements IWorkService {
     public Integer insert(Correct correct) {
         return this.workDao.insert(correct);
     }
+
+    public Integer makework(Work work) {
+        return this.workDao.MakeWork(work);
+    }
 }

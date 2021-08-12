@@ -117,4 +117,27 @@ public class WorkController {
         return json;
     }
 
+    @ResponseBody
+    @RequestMapping(value="makework", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String makework(HttpServletRequest request)    //老师创建作业
+    {
+        String nameString = request.getParameter("name");
+        String classNameString = request.getParameter("className");
+        String dataString = request.getParameter("data");
+        System.out.println(nameString+" "+classNameString+" "+dataString);
+        Work work = new Work();
+        work.setName(nameString);
+        work.setClassName(classNameString);
+        work.setData(dataString);
+        int count = iWorkService.makework(work);
+        String json="";
+        if(count==0) {
+            json="{\"count\":\"200\",\"message\":\"添加失败\"}";
+        }else{
+            json="{\"count\":\"200\",\"message\":\"添加成功\"}";
+        }
+        System.out.println(json);
+        return json;
+    }
+
 }

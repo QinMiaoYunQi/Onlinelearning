@@ -23,4 +23,8 @@
     <insert id="insert" parameterType="com.javen.model.Correct">
         insert into point (workName,studentName,content,point) values (#{workName},#{studentName},#{content},#{point})
     </insert>
+
+    <insert id="MakeWork" parameterType="com.javen.model.Work">
+        insert into homework (name,className,data) values (#{name},#{className},#{data})
+    </insert>
 </mapper>

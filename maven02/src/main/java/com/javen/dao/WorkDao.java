@@ -16,4 +16,6 @@ public interface WorkDao {
     Integer SelectCountClass(Work className);
 
     Integer insert(Correct correct);
+
+    Integer MakeWork(Work work);
 }

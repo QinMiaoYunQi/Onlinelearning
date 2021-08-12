@@ -16,4 +16,6 @@ public interface IWorkService {
     Integer SelectCountClass(Work className);
 
     Integer insert(Correct correct);
+
+    Integer makework(Work work);
 }
