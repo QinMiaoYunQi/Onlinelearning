@@ -1,7 +1,6 @@
 package com.javen.dao;
 
 import com.javen.model.Student;
-import com.javen.model.Teacher;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public interface StudentDao {
 
     public int update(Student student);
     public List<Student> likeByPhone(@Param("value") String value, int pageIndex, int pageSize);
-
+    public Student selectByPhone(@Param("phone") String phone);
 
 
     int SelectCount();

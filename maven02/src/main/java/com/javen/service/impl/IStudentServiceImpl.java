@@ -3,6 +3,7 @@ package com.javen.service.impl;
 import com.javen.dao.StudentDao;
 import com.javen.model.Student;
 import com.javen.service.IStudentService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,8 @@ public class IStudentServiceImpl implements IStudentService {
         // TODO Auto-generated method stub
         return this.StudentDao.SelectCount();
     }
+    public Student selectByPhone(@Param("phone") String phone){
+        return this.StudentDao.selectByPhone(phone);
+    };
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -67,5 +68,26 @@ public class TopicController {
         json= "{"+"\"count\":\"失败\"}";
         }
         return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/insert", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String insert(HttpServletRequest request){
+        String title = request.getParameter("title");
+        String studentName = request.getParameter("studentName");
+        Topic topic = new Topic();
+        topic.setTitle(title);
+        topic.setStudentName(studentName);
+        topic.setFoundTime(new Date());
+        topic.setHeat(0);
+        int count = iTopicService.insert(topic);
+        String json = "";
+        if (count==1){
+            json= "{"+"\"count\":\"成功\"}";
+        }else {
+            json= "{"+"\"count\":\"失败\"}";
+        }
+        return json;
+
     }
 }

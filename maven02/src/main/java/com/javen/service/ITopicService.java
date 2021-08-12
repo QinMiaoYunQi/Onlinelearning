@@ -10,4 +10,5 @@ public interface ITopicService {
     public List<Topic> selectAll(int pageIndex, int pageSize);
     public Topic selectById(int id);
     public int heat(@Param("title") String title);
+    public int insert(Topic topic);
 }

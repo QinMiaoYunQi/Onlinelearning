@@ -138,4 +138,16 @@ public class StudentController {
         return data;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/selectByPhone", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String selectByPhone(HttpServletRequest request) throws Exception {
+        String phone = request.getParameter("phone");
+        System.out.println("phone:"+phone);
+        Student student = iStudentService.selectByPhone(phone);
+        String[] colums = { "id", "name", "phone","password", "className" };
+        String data = ObjtoLayJson.toJson(student, colums);
+        System.out.println(data);
+        return data;
+    }
+
 }

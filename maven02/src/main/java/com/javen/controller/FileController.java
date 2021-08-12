@@ -1,25 +1,20 @@
 package com.javen.controller;
 
+import java.io.File;
 import com.javen.service.IFileService;
 import com.javen.util.ObjtoLayJson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -107,5 +102,25 @@ public class FileController {
             out.flush();
         }
         out.close();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/likeByFileName", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String likeByFileName(HttpServletRequest request) throws Exception {
+        String fileName = request.getParameter("fileName");
+        String pageString = request.getParameter("page");
+        String limitString = request.getParameter("limit");
+        Integer pageInteger = Integer.valueOf(pageString);
+        Integer limitInteger = Integer.valueOf(limitString);
+        System.out.println(pageString +" "+ limitString);
+        System.out.println("fileName:"+fileName);
+        List<com.javen.model.File> files = iFileService.likeByFileName(fileName,pageInteger,limitInteger);
+        for (com.javen.model.File file : files) {
+            System.out.println(file.toString());
+        }
+        String[] colums = { "id", "fileName","time", "className" };
+        String data = ObjtoLayJson.ListtoJson(files, colums);
+        System.out.println(data);
+        return data;
     }
 }

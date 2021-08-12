@@ -1,0 +1,57 @@
+package com.javen.controller;
+
+import com.javen.model.Homework;
+import com.javen.model.JobName;
+import com.javen.service.IHomeworkService;
+import com.javen.util.ObjtoLayJson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Controller
+@RequestMapping("/homework")
+public class HomeworkController {
+    @Autowired
+    private IHomeworkService iHomeworkService;
+
+    @ResponseBody
+    @RequestMapping(value = "/SelectCount", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+    public String SelectCount(HttpServletRequest request) {
+        int count = iHomeworkService.SelectCount();
+        System.out.println( "count:" + count );
+        String data = String.valueOf(count);
+        String json= "{"+"\"count\":"+data+"}";
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/selectAll", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String selectAll(HttpServletRequest request) throws Exception{
+        String pageString = request.getParameter("page");
+        String limitString = request.getParameter("limit");
+        Integer pageInteger = Integer.valueOf(pageString);
+        Integer limitInteger = Integer.valueOf(limitString);
+        System.out.println(pageString +" "+ limitString);
+        String teacherName = request.getParameter("teacherName");
+        int pageIndex = (pageInteger-1) * limitInteger;
+        int pageSize = limitInteger;
+        Map<String,Object> map =  new HashMap<String, Object>();
+        map.put("pageIndex",pageIndex);
+        map.put("pageSize",pageSize);
+        map.put("teacherName",teacherName);
+        System.out.println(map.get("teacherName"));
+        List<Homework> listsList = iHomeworkService.selectAll(map);
+        String[] colums = { "id", "jobName", "className","date","teacherName" };
+        String data = ObjtoLayJson.ListtoJson(listsList, colums);
+        System.out.println(data);
+        return data;
+    }
+
+}

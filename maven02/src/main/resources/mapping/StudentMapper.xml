@@ -27,4 +27,9 @@
     <select id="SelectCount"  resultType="java.lang.Integer" >
         SELECT count(*) FROM student;
     </select>
+    <select id="selectByPhone" resultType="com.javen.model.Student" parameterType="java.lang.String">
+        select *
+        from student
+        where phone = #{phone}
+    </select>
 </mapper>

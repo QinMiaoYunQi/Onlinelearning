@@ -21,4 +21,10 @@ public class IFileServiceImpl implements IFileService {
     public List<File> show() {
         return this.fileDao.show();
     }
+    public List<File> likeByFileName(String value, int pageInteger, int limitInteger) {
+        int pageIndex = (pageInteger-1) * limitInteger;
+        int pageSize = limitInteger;
+        return this.fileDao.likeByFileName(value,pageIndex,pageSize);
+    }
+
 }

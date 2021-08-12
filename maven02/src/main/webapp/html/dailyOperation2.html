@@ -14,7 +14,19 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
+<!--修改的from表单 -->
+<form class="layui-form"  id="updataForm" style="display:none" lay-filter="updata" enctype="multipart/form-data">
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <textarea id="content" name="content" lay-verify="content" autocomplete="off" placeholder="请输入内容..." class="layui-textarea"></textarea>
+        </div>
+    </div>
 
+    <div class="layui-form-item" id="sub">
+        <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo3" id="updatasub">提交</button>
+    </div>
+</form>
 
 
 
@@ -30,7 +42,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="viewJob">查看作业</a>
+    <a class="layui-btn layui-btn-xs" lay-event="doJob">写作业</a>
 </script>
 
 
@@ -62,7 +74,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/maven02/homework/selectAll?teacherName='+getCookie("name")
+            ,url:'http://localhost:8080/maven02/homework/selectAll'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -94,6 +106,47 @@
                 };
             }
         });
+
+//引入from表单
+        layui.use(['form', 'laydate'], function(){
+            form = layui.form;
+            form.render();
+
+            //表单取值
+            form.on('submit(demo3)', function(data){
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url:'http://localhost:8080/maven02/jobName/doJob?studentName='+getCookie("name")+'&jobName='+getCookie("jobName"),
+                    method:'get',
+                    data:data.field,
+                    dataType:'JSON',
+                    success:function(res){
+                        if(res.status='0'){
+                            console.log(res);
+                            layer.msg("提交成功");
+                            $("#updataForm")[0].reset();
+                            form.render();
+                            getPage();
+                        }else{
+                            layer.msg("提交失败");
+                            $("#updataForm")[0].reset();
+                            form.render();
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg("网络错误");
+                        $("#updataForm")[0].reset();
+                        form.render();
+                    }
+                }) ;
+                layer.close(layer_index);
+            });
+
+
+
+        });
+
+
 
 
 
@@ -129,10 +182,10 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             //console.log(obj)
-            if(obj.event === 'viewJob'){
+            if(obj.event === 'doJob'){
                 setCookie("jobName",data.jobName,3*24*60);
                 setCookie("className",data.className,3*24*60);
-                location.href='http://localhost:8080/maven02/html/viewJob.html';
+                doJob();
             }
         });
 
@@ -140,6 +193,23 @@
 
 
     });
+function doJob() {
+    layer_index= layer.open({
+        type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+        title: "写作业", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
+        area: ['500px', '400px'], //所打开页面大小
+        content:$("#updataForm"), //内容
+        //关闭操作
+        cancel: function(){
+            layer.close(layer_index);
+            $("#updataForm")[0].reset();
+        }
+    });
+    //刷新页面
+    layui.table.reload('test', {
+        url:'http://localhost:8080/maven02/homework/selectAll'
+    });
+}
 </script>
 
 </body>

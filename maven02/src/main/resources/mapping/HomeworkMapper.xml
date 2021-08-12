@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javen.dao.HomeworkDao">
+    <select id="SelectCount"  resultType="java.lang.Integer" >
+        SELECT count(*) FROM homework;
+    </select>
+    <select id="selectAll" resultType="com.javen.model.Homework" parameterType="java.util.Map">
+        select
+            *
+        from homework
+        <if test="teacherName != null and teacherName != ''">
+            where teacherName = #{teacherName}
+        </if>
+         ORDER BY date desc
+        limit #{pageIndex},#{pageSize}
+    </select>
+    <select id="selectById" resultType="com.javen.model.Homework" parameterType="int">
+        select * from homework where id = #{id}
+    </select>
+</mapper>

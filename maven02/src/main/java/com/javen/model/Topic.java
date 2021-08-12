@@ -1,15 +1,17 @@
 package com.javen.model;
 
+import java.util.Date;
+
 public class Topic {
     private int id;
     private String title;
     private int heat;
 
-    public String getFoundTime() {
+    public Date getFoundTime() {
         return foundTime;
     }
 
-    public void setFoundTime(String foundTime) {
+    public void setFoundTime(Date foundTime) {
         this.foundTime = foundTime;
     }
 
@@ -21,7 +23,7 @@ public class Topic {
         this.studentName = studentName;
     }
 
-    private String foundTime;
+    private Date foundTime;
     private String studentName;
 
     public int getId() {

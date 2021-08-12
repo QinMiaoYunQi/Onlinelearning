@@ -10,5 +10,8 @@
     <select id="show" resultType="com.javen.model.File">
         select * from file ;
     </select>
+    <select id="likeByFileName" resultType="com.javen.model.File" parameterType="java.lang.String">
+        select * from file where fileName like '%${value}%'
+    </select>
 
 </mapper>

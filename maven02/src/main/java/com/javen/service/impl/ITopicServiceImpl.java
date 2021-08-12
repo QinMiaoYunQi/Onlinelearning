@@ -30,4 +30,8 @@ public class ITopicServiceImpl implements ITopicService {
         return this.topicDao.heat(title);
     }
 
+    public int insert(Topic topic) {
+        return this.topicDao.insert(topic);
+    }
+
 }
