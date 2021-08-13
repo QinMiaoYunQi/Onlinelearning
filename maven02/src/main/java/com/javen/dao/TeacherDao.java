@@ -18,4 +18,10 @@ public interface TeacherDao {
     Integer update(Teacher teacher);
 
     List<Teacher> likeByName(@Param("value") String value, Integer pageIndex, Integer pageSize);
+
+    List<Teacher> GetTeacher(String classNameString);
+
+    Integer SelectNullClass(String classNameString);
+
+    Integer updateClass(Teacher teacher);
 }

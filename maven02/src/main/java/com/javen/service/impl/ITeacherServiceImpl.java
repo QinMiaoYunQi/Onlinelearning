@@ -42,4 +42,16 @@ public class ITeacherServiceImpl implements ITeacherService {
         int pageSize = limitInteger;
         return this.teacherDao.likeByName(value,pageIndex,pageSize);
     }
+
+    public List<Teacher> GetTeacher(String classNameString) {
+        return this.teacherDao.GetTeacher(classNameString);
+    }
+
+    public Integer SelectNullClass(String classNameString) {
+        return this.teacherDao.SelectNullClass(classNameString);
+    }
+
+    public Integer updateClass(Teacher teacher) {
+        return this.teacherDao.updateClass(teacher);
+    }
 }

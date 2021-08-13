@@ -27,4 +27,19 @@
     <select id="likeByName" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
         select * from teacher where phone like '%${value}%'
     </select>
+
+    <select id="GetTeacher" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
+        select
+            *
+        from teacher
+        where className = #{className}
+    </select>
+
+    <select id="SelectNullClass" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from teacher where className = #{className}
+    </select>
+
+    <update id="updateClass" parameterType="com.javen.model.Teacher">
+        update teacher set className = #{className} where name = #{name}
+    </update>
 </mapper>

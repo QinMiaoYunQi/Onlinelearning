@@ -136,4 +136,52 @@ public class TeacherController {
         return data;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/SelectNullClass", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+    public String SelectNullClass(HttpServletRequest request)    //查询班级teacher表中所有班级为空的老师条数
+    {
+        String classNameString = request.getParameter("className");
+        System.out.println("传入的className:"+classNameString);
+        Integer count = iTeacherService.SelectNullClass(classNameString);
+        System.out.println( "count:" + count );
+        String data = String.valueOf(count);
+        String json= "{"+"\"count\":"+data+"}";
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="GetTeacher", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String GetTeacher(HttpServletRequest request) throws Exception   //获取没有分配班级的老师名
+    {
+        String classNameString = request.getParameter("className");
+        System.out.println("className:"+classNameString);
+        List<Teacher> listsList = iTeacherService.GetTeacher(classNameString);
+        String[] colums = { "id", "name", "phone","password", "className" };
+        String json = ObjtoLayJson.ListtoJson(listsList, colums);
+        System.out.println(json);
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="updateClass", method= RequestMethod.GET,produces = "text/plain;charset=utf-8")
+    public String updateClass(HttpServletRequest request)     //在教师表中将老师的班级修改为创建的班级
+    {
+        String nameString = request.getParameter("teacherName");
+        String classNameString = request.getParameter("className");
+        System.out.println(nameString+" "+classNameString);
+        System.out.println("...............");
+        Teacher teacher = new Teacher();
+        teacher.setName(nameString);
+        teacher.setClassName(classNameString);
+        Integer count = iTeacherService.updateClass(teacher);
+        String json="";
+        if(count==0) {
+            json="{\"count\":\"200\",\"message\":\"修改失败\"}";
+        }else {
+            json="{\"count\":\"200\",\"message\":\"修改成功\"}";
+        }
+        System.out.println(json);
+        return json;
+    }
+
 }
