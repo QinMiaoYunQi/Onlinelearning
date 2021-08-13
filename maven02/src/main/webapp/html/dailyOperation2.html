@@ -116,7 +116,7 @@
             form.on('submit(demo3)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/maven02/jobName/doJob?studentName='+getCookie("teacherName")+'&jobName='+getCookie("jobName"),
+                    url:'http://localhost:8080/maven02/jobName/doJob?studentName='+getCookie("studentName")+'&jobName='+getCookie("jobName")+'&className='+getCookie("className"),
                     method:'get',
                     data:data.field,
                     dataType:'JSON',

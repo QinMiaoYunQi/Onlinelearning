@@ -83,11 +83,13 @@ public class JobNameController {
         String jobName = request.getParameter("jobName");
         String studentName = request.getParameter("studentName");
         String content = request.getParameter("content");
+        String className = request.getParameter("className");
         System.out.println("..............."+studentName);
         JobName job = new JobName();
         job.setJobName(jobName);
         job.setStudentName(studentName);
         job.setContent(content);
+        job.setClassName(className);
         int count = iJobNameService.doJob(job);
         String json="";
         if(count==0) {

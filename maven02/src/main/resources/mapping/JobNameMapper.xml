@@ -19,7 +19,7 @@
     <update id="update" parameterType="com.javen.model.JobName">
         update jobname set fraction = #{fraction} where id = #{id}
     </update>
-    <update id="doJob" parameterType="com.javen.model.JobName">
-        update jobname set content = #{content} where jobName = #{jobName} and studentName = #{studentName}
-    </update>
+    <insert id="doJob" parameterType="com.javen.model.JobName">
+        insert into jobname (content,jobName,studentName,className) values (#{content},#{jobName},#{studentName},#{className})
+    </insert>
 </mapper>
