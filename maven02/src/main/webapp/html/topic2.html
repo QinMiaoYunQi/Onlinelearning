@@ -2,43 +2,45 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>课件管理界面</title>
+    <title>学生端讨论话题界面</title>
+
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="../sources/js/jquery.js"></script>
     <script src="../sources/js/cookie.js"></script>
     <link rel="stylesheet" href="../sources/layui/css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-<form id="addForm" style="display:none" action="http://localhost:8080/Onlinelearning/file/upload.action" method="post" enctype="multipart/form-data">
-    选择文件:<input type="file" name="file" width="120px">
+<!-- 添加的from表单 -->
+<form class="layui-form" action="" id="addForm" style="display:none" lay-filter="add" enctype="multipart/form-data">
     <div class="layui-form-item">
-        <label class="layui-form-label">上传时间</label>
+        <label class="layui-form-label">话题名</label>
         <div class="layui-input-block">
-            <input type="text" id="time" name="time" lay-verify="title" autocomplete="off" placeholder="上传时间" class="layui-input">
+            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="话题名" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">班级</label>
+        <label class="layui-form-label">学生</label>
         <div class="layui-input-block">
-            <input type="text" id="className" name="className" lay-verify="title" autocomplete="off" placeholder="班级" class="layui-input">
+            <input type="text" name="studentName" lay-verify="studentName" autocomplete="off" placeholder="学生" class="layui-input">
         </div>
     </div>
-    <input type="submit" value="上传">
+    <div class="layui-form-item">
+        <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo2" id="addsub">提交</button>
+    </div>
 </form>
 
-<form id="downForm" style="display:none"  lay-filter="updata" action="http://localhost:8080/Onlinelearning/file/down.action" method="get">
-    <input type="text" id="filename" name="filename">
-    <input type="submit" value="下载">
-</form>
+
+
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="add">文件上传</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add">创建话题</button>
         <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>-->
@@ -46,7 +48,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">下载</a>
+    <a class="layui-btn layui-btn-xs" lay-event="see">查看评论</a>
 </script>
 
 
@@ -54,12 +56,31 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
 <script>
+
     layui.use('table', function(){
         var table = layui.table;
+        var pagecount;
+        getPage();
+        function getPage(){
+            var url="http://localhost:8080/Onlinelearning/topic/SelectCount";
+            $.ajax({
+                type:"get",
+                url:url,
+                data:{},
+                dataType:'JSON',
+                success: function(data){
+                    console.log(data);
+                    pagecount=data.count;
+                },
+                error:function(XMLHttpRequest,textStatus,errorThrown){
+                    alert(typeof(ferrorThrown));
+                }
+            });
+        }
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/file/show?className='+getCookie("className")
+            ,url:'http://localhost:8080/Onlinelearning/topic/selectAll'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -70,12 +91,12 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'fileName', title:'文件名', width:120, edit: 'text'}
-                ,{field:'time', title:'上传时间', width:120, edit: 'text'}
-                ,{field:'className', title:'班级', width:120, edit: 'text'}
+                ,{field:'title', title:'话题名称', width:120, edit: 'text'}
+                ,{field:'heat', title:'热度', width:200, edit: 'text'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: true
+            ,limit: 10
             ,response:{
                 statusName: 'status' //规定数据状态的字段名称，默认：code
                 ,dataName: 'rows' //规定数据列表的字段名称，默认：data
@@ -84,16 +105,67 @@
                 return {
                     "status": res[0].status,   //解析接口状态
                     "message":res[1].message,  //解析提示文本
-                    "count": 100,       //解析数据长度
+                    "count": pagecount,       //解析数据长度
                     "rows": res[3].rows.item  //解析数据列表
                 };
             }
         });
 
-        //头工具栏事件
+
+
+
+        //引入from表单
+        layui.use(['form', 'laydate'], function(){
+            form = layui.form;
+            form.render();
+
+            //表单取值
+            form.on('submit(demo2)', function(data){
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url:'http://localhost:8080/Onlinelearning/topic/insert',
+                    method:'get',
+                    data:data.field,
+                    dataType:'JSON',
+                    success:function(res){
+                        if(res.status='0'){
+                            console.log(res);
+                            layer.msg("创建成功");
+                            $("#addForm")[0].reset();
+                            form.render();
+                            getPage();
+                        }else{
+                            layer.msg("创建失败");
+                            $("#addForm")[0].reset();
+                            form.render();
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg("网络错误");
+                        $("#addForm")[0].reset();
+                        form.render();
+                    }
+                }) ;
+                layer.close(layer_index);
+            });
+
+
+        });
+
+
+
+
+
+
+
+
+//头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
+                case 'add':
+                    add();
+                    break;
                 case 'getCheckData':
                     var data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
@@ -105,10 +177,6 @@
                 case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选');
                     break;
-                case 'add':
-                    add();
-                    break;
-
                 //自定义头工具栏右侧图标 - 提示
                 case 'LAYTABLE_TIPS':
                     layer.alert('这是工具栏右侧自定义的一个图标按钮');
@@ -116,43 +184,37 @@
             };
         });
 
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'see'){
+                setCookie("id",data.id,3*24*60);
+                location.href='http://localhost:8080/Onlinelearning/login/see';
+            }
+        });
+
+
         function add(){
             layer_index= layer.open({
                 type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                title: "上传文件", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
+                title: "创建话题", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
                 area: ['500px', '400px'], //所打开页面大小
                 content:$("#addForm"), //内容
                 //关闭操作
                 cancel: function(){
                     layer.close(layer_index);
                     $("#addForm")[0].reset();
+                    $('#demoe1').attr('src', "");
                 }
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/file/show?className='+getCookie("className")
+                url: 'http://localhost:8080/Onlinelearning/topic/selectAll'
             });
         }
 
-        //监听行工具事件
-        table.on('tool(test)', function(obj){
-            var data = obj.data;
-            if(obj.event === 'del'){
-                //设置值
-                $("#filename").val(data.fileName);
-                layer_index= layer.open({
-                    type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                    title: "下载", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
-                    area: ['300px', '300px'], //所打开页面大小
-                    content:$("#downForm"), //内容
-                    //关闭操作
-                    cancel: function(){
-                        layer.close(layer_index);
-                        $("#downForm")[0].reset();
-                    }
-                });
-            }
-        });
+
     });
 </script>
 

@@ -19,6 +19,10 @@
     <select id="StudentLogin" resultType="com.javen.model.Student" parameterType="com.javen.model.Login">
         select * from student where phone = #{phone} and password = #{password}
     </select>
+
+    <select id="TeacherLogin" resultType="com.javen.model.Teacher" parameterType="com.javen.model.Login">
+        select * from teacher where phone = #{phone} and password = #{password}
+    </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select 

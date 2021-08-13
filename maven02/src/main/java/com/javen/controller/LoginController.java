@@ -54,6 +54,10 @@ public class LoginController {
 	public String fileContent(HttpServletRequest request,Model model){
 		return "fileContent";
 	}
+	@RequestMapping(value="/fileContent2", method=RequestMethod.GET)   //跳转到学生端课件下载管理界面
+	public String fileContent2(HttpServletRequest request,Model model){
+		return "fileContent2";
+	}
 	@RequestMapping(value="/homework", method=RequestMethod.GET)   //跳转到每日作业管理
 	public String homework(HttpServletRequest request,Model model){
 		return "homework";
@@ -77,6 +81,10 @@ public class LoginController {
 	@RequestMapping(value="/see", method=RequestMethod.GET)   //跳转到查看评论界面
 	public String see(HttpServletRequest request,Model model){
 		return "see";
+	}
+	@RequestMapping(value="/topic2", method=RequestMethod.GET)   //跳转到学生端话题讨论界面
+	public String topic2(HttpServletRequest request,Model model){
+		return "topic2";
 	}
 
     @ResponseBody
@@ -106,7 +114,7 @@ public class LoginController {
 				return  "{\"data\":\"账号密码有误\"}";
 			}
 		}else {
-			if (loginService.ifLogin(aaa,request,response)){
+			if (loginService.TeacherLogin(aaa,request,response)){
 				return "{\"data\":\"教师账号\"}";
 			}else {
 				return  "{\"data\":\"账号密码有误\"}";

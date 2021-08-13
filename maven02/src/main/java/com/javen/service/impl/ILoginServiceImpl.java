@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.javen.model.Student;
+import com.javen.model.Teacher;
 import com.javen.model.User;
 import org.springframework.stereotype.Service;
 
@@ -91,6 +92,22 @@ public class ILoginServiceImpl implements ILoginService{
 			response.addCookie(phone);
 			response.addCookie(className);
 			response.addCookie(studentName);
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	public Boolean TeacherLogin(Login aaa, HttpServletRequest request, HttpServletResponse response) {
+		List<Teacher> xxx = loginDao.TeacherLogin(aaa);
+		if (xxx.size() == 1){
+			HttpSession session = request.getSession();
+			session.setAttribute("phone",xxx.get(0));
+
+			Cookie phone=new Cookie("phone",xxx.get(0).getPhone());
+			Cookie className=new Cookie("className",xxx.get(0).getClassName());
+			response.addCookie(phone);
+			response.addCookie(className);
 			return true;
 		}else {
 			return false;

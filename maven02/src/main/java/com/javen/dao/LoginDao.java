@@ -2,6 +2,7 @@ package com.javen.dao;
 
 import com.javen.model.Login;
 import com.javen.model.Student;
+import com.javen.model.Teacher;
 import com.javen.model.User;
 
 
@@ -25,4 +26,6 @@ public interface LoginDao {
 
 
     List<Student> StudentLogin(Login aaa);
+
+    List<Teacher> TeacherLogin(Login aaa);
 }

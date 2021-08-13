@@ -28,4 +28,6 @@ public interface ILoginService {
 
 
     Boolean StudentLogin(Login aaa, HttpServletRequest request, HttpServletResponse response);
+
+	Boolean TeacherLogin(Login aaa, HttpServletRequest request, HttpServletResponse response);
 }
