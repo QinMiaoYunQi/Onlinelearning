@@ -1,0 +1,25 @@
+创建组织
+邀请成员
+
+创建仓库
+邀请成员
+
+
+git clone xxxx地址    先将远程仓库克隆到本地
+
+
+创建一个文件
+git add  . #添加到暂存区
+git commit -m 'xxxx'  #添加到本地仓库
+git pull # 同步远程仓库到本地，检查远程仓库是否比本地版本更高一些
+git push  #推送到远程仓库
+
+git checkout -b xxx分支名字   #创建并切分支
+创建一个文件
+git add  . #添加到暂存区
+git commit -m 'xxxx'  #添加到本地仓库
+git push orgin xxx分支名字 #推送到远程仓库
+
+git pull origin xxx分支名字 #远程拉取XX分支
+git merge origin/xxx分支名字
+git push 上传

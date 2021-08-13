@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.javen.dao.LeaveDao" >
+
+    <select id="SelectCount"  resultType="java.lang.Integer" >
+        SELECT count(*) FROM holiday;
+    </select>
+
+    <select id="selectAll" resultType="com.javen.model.Leave" parameterType="java.lang.Integer">
+        select * from holiday
+        limit #{param1},#{param2}
+    </select>
+
+    <select id="thisMonth" resultType="com.javen.model.Leave" parameterType="java.lang.Integer">
+        select * from holiday where data like '2021.08%' limit #{param1},#{param2}
+    </select>
+
+    <select id="selectLimit" resultType="com.javen.model.Leave" parameterType="com.javen.model.Leave">
+        select * from holiday where result=#{result}
+    </select>
+
+    <update id="update" parameterType="com.javen.model.Leave">
+        update holiday set result = #{result} where id = #{id}
+    </update>
+
+    <select id="selectPhone" resultType="com.javen.model.Leave" parameterType="com.javen.model.Leave">
+        select * from holiday where phone=#{phone}
+    </select>
+
+    <insert id="insert" parameterType="com.javen.model.Leave">
+        insert into holiday (name,phone,data,reason,result) values (#{name},#{phone},#{data},#{reason},#{result})
+    </insert>
+
+    <!--
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from teacher where id = #{id}
+    </delete>
+    <select id="likeByName" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
+        select * from teacher where phone like '%${value}%'
+    </select>-->
+</mapper>

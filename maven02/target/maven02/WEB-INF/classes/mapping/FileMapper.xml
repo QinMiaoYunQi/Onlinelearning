@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javen.dao.FileDao" >
+
+
+    <insert id="insert" parameterType="com.javen.model.File" >
+        insert into file (fileName,time,className) values (#{fileName},#{time},#{className})
+   </insert>
+
+    <select id="show" resultType="com.javen.model.File" parameterType="java.lang.String">
+        select * from file where className=#{className};
+    </select>
+    <select id="likeByFileName" resultType="com.javen.model.File" parameterType="java.lang.String">
+        select * from file where fileName like '%${value}%'
+    </select>
+
+</mapper>

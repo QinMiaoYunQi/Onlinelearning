@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javen.dao.JobNameDao">
+    <select id="SelectCount"  resultType="java.lang.Integer" >
+        SELECT count(*) FROM jobname;
+    </select>
+    <select id="selectAll" resultType="com.javen.model.JobName" parameterType="java.util.Map">
+        select
+            *
+        from jobname
+        where jobName = #{jobName} and fraction = "无" and className = #{className}
+         limit #{pageIndex},#{pageSize}
+    </select>
+    <select id="selectById" resultType="com.javen.model.JobName" parameterType="int">
+        select * from jobname where id = #{id}
+    </select>
+    <update id="update" parameterType="com.javen.model.JobName">
+        update jobname set fraction = #{fraction} where id = #{id}
+    </update>
+    <insert id="doJob" parameterType="com.javen.model.JobName">
+        insert into jobname (content,jobName,studentName,className) values (#{content},#{jobName},#{studentName},#{className})
+    </insert>
+</mapper>
