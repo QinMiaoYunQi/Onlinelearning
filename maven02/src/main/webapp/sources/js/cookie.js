@@ -1,3 +1,10 @@
+//exdays:存储的天数
+function setCookie(cname,cvalue,exdays){
+    var d = new Date();
+    d.setTime(d.getTime()+(exdays*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
+}
 //获取浏览器cookie值
 function getCookie(cname){
     var name = cname + "=";

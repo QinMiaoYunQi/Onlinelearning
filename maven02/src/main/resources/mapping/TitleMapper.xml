@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javen.dao.TitleDao">
+    <select id="selectByTitle" resultType="com.javen.model.Title" parameterType="java.lang.String">
+        select * from title where title = #{title}
+    </select>
+    <insert id="insert" parameterType="com.javen.model.Student">
+        insert into title (comment,title,studentName) values (#{comment},#{title},#{studentName})
+    </insert>
+
+</mapper>

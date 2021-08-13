@@ -66,6 +66,18 @@ public class LoginController {
 	public String DoWork(HttpServletRequest request,Model model){
 		return "DoWork";
 	}
+	@RequestMapping(value="/StudentMessage", method=RequestMethod.GET)   //跳转到学生管理界面
+	public String StudentMessage(HttpServletRequest request,Model model){
+		return "StudentMessage";
+	}
+	@RequestMapping(value="/topic", method=RequestMethod.GET)   //跳转到学生管理界面
+	public String topic(HttpServletRequest request,Model model){
+		return "topic";
+	}
+	@RequestMapping(value="/see", method=RequestMethod.GET)   //跳转到查看评论界面
+	public String see(HttpServletRequest request,Model model){
+		return "see";
+	}
 
     @ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
