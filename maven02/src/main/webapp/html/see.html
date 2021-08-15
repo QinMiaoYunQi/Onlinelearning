@@ -62,7 +62,7 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 <script>
     function get(){
-        var url='http://localhost:8080/Onlinelearning/topic/selectById?id='+getCookie("id");
+        var url='http://localhost:8080/OnlineLearning/topic/selectById?id='+getCookie("id");
         $.ajax({
             type:"get",
             url:url,
@@ -90,7 +90,7 @@
     }
 
     function select(title){
-        var url="http://localhost:8080/Onlinelearning/title/selectByTitle";
+        var url="http://localhost:8080/OnlineLearning/title/selectByTitle";
         $.ajax({
             type:"get",
             url:url,
@@ -119,7 +119,7 @@
         $("#comment").empty().append(html);
     }
     function check(){
-        var url="http://localhost:8080/Onlinelearning/title/insert";
+        var url="http://localhost:8080/OnlineLearning/title/insert";
         var data = {
             "comment":$("#input").val(),
             "title":$("#title").text(),
@@ -141,7 +141,7 @@
         });
     }
     function heat(){
-        var url="http://localhost:8080/Onlinelearning/topic/heat";
+        var url="http://localhost:8080/OnlineLearning/topic/heat";
         $.ajax({
             type:"get",
             url:url,
@@ -149,7 +149,7 @@
             dataType:'JSON',
             success: function(value){
                 console.log(value);
-                location.href='http://localhost:8080/Onlinelearning/html/topic.html';
+                location.href='http://localhost:8080/OnlineLearning/html/topic.html';
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){
                 alert(typeof(ferrorThrown));

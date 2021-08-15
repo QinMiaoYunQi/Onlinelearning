@@ -8,7 +8,7 @@
     <resultMap  id ="UserIdCard" type="com.javen.model.User">
         <result property="id" column="id"/>
         <result property="userName" column="userName"/>
-        <result property="password" column="password"/>
+        <result property="passWord" column="passWord"/>
         <result property="phoneNumber" column="phoneNumber"/>
     </resultMap>
 

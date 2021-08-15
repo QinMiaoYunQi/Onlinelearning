@@ -32,7 +32,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" name="passWord" lay-verify="passWord" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -91,7 +91,7 @@
         var pagecount;
         getPage();
         function getPage(){
-            var url="http://localhost:8080/Onlinelearning/homework/SelectCountClass?className="+getCookie("className");
+            var url="http://localhost:8080/OnlineLearning/homework/SelectCountClass?className="+getCookie("className");
             $.ajax({
                 type:"get",
                 url:url,
@@ -109,7 +109,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/homework/selectClass?className='+getCookie("className")
+            ,url:'http://localhost:8080/OnlineLearning/homework/selectClass?className='+getCookie("className")
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -150,7 +150,7 @@
             form.on('submit(demo2)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/teacher/insert',
+                    url:'http://localhost:8080/OnlineLearning/teacher/insert',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -181,7 +181,7 @@
             form.on('submit(demo3)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/homework/dowork?studentName='+getCookie("studentName"),
+                    url:'http://localhost:8080/OnlineLearning/homework/dowork?studentName='+getCookie("studentName"),
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -192,7 +192,7 @@
                             $("#updataForm")[0].reset();
                             form.render();
                             table.reload('test', {
-                                url: 'http://localhost:8080/Onlinelearning/homework/selectClass?className='+getCookie("className")
+                                url: 'http://localhost:8080/OnlineLearning/homework/selectClass?className='+getCookie("className")
                             });
                             getPage();
                         }else{
@@ -272,13 +272,13 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/teacher/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/teacher/selectAll'
             });
         }
 
         function select(){
 
-            var url = "http://localhost:8080/Onlinelearning/teacher/likeByName";
+            var url = "http://localhost:8080/OnlineLearning/teacher/likeByName";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
@@ -297,7 +297,7 @@
 //删除
         function deleteById(index){
 
-            var url = "http://localhost:8080/Onlinelearning/login/CookieName";
+            var url = "http://localhost:8080/OnlineLearning/login/CookieName";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
@@ -305,7 +305,7 @@
                 dataType:'JSON',
                 async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
                 success: function (res)
-                {if(res.message=="Cookie设置成功") {window.location.href="http://localhost:8080/Onlinelearning/login/Correct";}
+                {if(res.message=="Cookie设置成功") {window.location.href="http://localhost:8080/OnlineLearning/login/Correct";}
                 else{layer.msg("Cookie设置失败");}
                 },
                 error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -334,7 +334,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/homework/selectClass?className='+getCookie("className")
+                url: 'http://localhost:8080/OnlineLearning/homework/selectClass?className='+getCookie("className")
             });
         }
 

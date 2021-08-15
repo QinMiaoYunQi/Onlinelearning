@@ -99,7 +99,7 @@
     var data;
     function get()
     {
-        var url="http://localhost:8080/Onlinelearning/teacher/SelectNullClass?className=无";
+        var url="http://localhost:8080/OnlineLearning/teacher/SelectNullClass?className=无";
 
         $.ajax({
             type:"get",
@@ -118,7 +118,7 @@
     }
 
     function getTeacher(){      //获取没有班级的老师
-        var url="http://localhost:8080/Onlinelearning/teacher/GetTeacher?className=无";
+        var url="http://localhost:8080/OnlineLearning/teacher/GetTeacher?className=无";
 
         $.ajax({
             type:"get",
@@ -151,7 +151,7 @@
         var pagecount;
         getPage();
         function getPage(){
-            var url="http://localhost:8080/Onlinelearning/class/SelectCount";
+            var url="http://localhost:8080/OnlineLearning/class/SelectCount";
             $.ajax({
                 type:"get",
                 url:url,
@@ -169,7 +169,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/class/selectAll'
+            ,url:'http://localhost:8080/OnlineLearning/class/selectAll'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -212,7 +212,7 @@
             form.on('submit(demo2)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/class/insert',
+                    url:'http://localhost:8080/OnlineLearning/class/insert',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -237,7 +237,7 @@
                 }) ;
 
                 $.ajax({     //在教师表中将老师的班级修改为创建的班级
-                    url:'http://localhost:8080/Onlinelearning/teacher/updateClass',
+                    url:'http://localhost:8080/OnlineLearning/teacher/updateClass',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -267,7 +267,7 @@
             form.on('submit(demo3)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/class/update',
+                    url:'http://localhost:8080/OnlineLearning/class/update',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -278,7 +278,7 @@
                             $("#updataForm")[0].reset();
                             form.render();
                             table.reload('test', {
-                                url: 'http://localhost:8080/Onlinelearning/class/selectAll'
+                                url: 'http://localhost:8080/OnlineLearning/class/selectAll'
                             });
                             getPage();
                         }else{
@@ -365,7 +365,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/class/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/class/selectAll'
             });
         }
 
@@ -373,7 +373,7 @@
 //删除
         function deleteById(index){
 
-            var url = "http://localhost:8080/Onlinelearning/class/delete";
+            var url = "http://localhost:8080/OnlineLearning/class/delete";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
@@ -410,7 +410,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/class/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/class/selectAll'
             });
         }
 

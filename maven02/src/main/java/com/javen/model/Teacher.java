@@ -4,7 +4,7 @@ public class Teacher {
     private Integer id;
     private String name;
     private String phone;
-    private String password;
+    private String passWord;
     private String className;
 
     public Integer getId() {
@@ -31,12 +31,12 @@ public class Teacher {
         this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
     public String getClassName() {
@@ -53,7 +53,7 @@ public class Teacher {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
+                ", passWord='" + passWord + '\'' +
                 ", className='" + className + '\'' +
                 '}';
     }

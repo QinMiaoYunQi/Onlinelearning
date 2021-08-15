@@ -32,7 +32,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" name="passWord" lay-verify="passWord" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -63,7 +63,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" id="password" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" id="passWord" name="passWord" lay-verify="passWord" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -112,7 +112,7 @@
         var pagecount;
         getPage();
         function getPage(){
-            var url="http://localhost:8080/Onlinelearning/leave/SelectCount";
+            var url="http://localhost:8080/OnlineLearning/leave/SelectCount";
             $.ajax({
                 type:"get",
                 url:url,
@@ -130,7 +130,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/leave/selectLimit'
+            ,url:'http://localhost:8080/OnlineLearning/leave/selectLimit'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -168,7 +168,7 @@
             reload: function(){
                 //执行重载
                 table.reload('test', {
-                    url: 'http://localhost:8080/Onlinelearning/leave/selectAll'
+                    url: 'http://localhost:8080/OnlineLearning/leave/selectAll'
                     ,methods:"get"
                     ,page: {
                         curr: 1 //重新从第 1 页开始
@@ -197,7 +197,7 @@
             form.on('submit(demo2)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/student/insert?className=无',
+                    url:'http://localhost:8080/OnlineLearning/student/insert?className=无',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -228,7 +228,7 @@
             form.on('submit(demo3)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/student/update',
+                    url:'http://localhost:8080/OnlineLearning/student/update',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -239,7 +239,7 @@
                             $("#updataForm")[0].reset();
                             form.render();
                             table.reload('test', {
-                                url: 'http://localhost:8080/Onlinelearning/student/selectAll'
+                                url: 'http://localhost:8080/OnlineLearning/student/selectAll'
                             });
                             getPage();
                         }else{
@@ -303,7 +303,7 @@
                     "id": data.id // "name": "value"
                     ,"name":data.name
                     ,"phone": data.phone
-                    ,"password": data.password
+                    ,"passWord": data.passWord
                     ,"className": data.className
                 });
                 updateById(data);
@@ -325,13 +325,13 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/student/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/student/selectAll'
             });
         }
 
         function select(){
 
-            var url = "http://localhost:8080/Onlinelearning/student/select";
+            var url = "http://localhost:8080/OnlineLearning/student/select";
             var name =
                 $.ajax({
                     type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
@@ -351,7 +351,7 @@
         //管理员同意请假
         function deleteById(index){
 
-            var url = "http://localhost:8080/Onlinelearning/leave/agree?result=同意";
+            var url = "http://localhost:8080/OnlineLearning/leave/agree?result=同意";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
@@ -369,7 +369,7 @@
 
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/leave/selectLimit'
+                url: 'http://localhost:8080/OnlineLearning/leave/selectLimit'
             });
         }
 
@@ -392,7 +392,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/student/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/student/selectAll'
             });
         }
 

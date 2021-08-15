@@ -62,7 +62,7 @@
         var pagecount;
         getPage();
         function getPage(){
-            var url="http://localhost:8080/Onlinelearning/topic/SelectCount";
+            var url="http://localhost:8080/OnlineLearning/topic/SelectCount";
             $.ajax({
                 type:"get",
                 url:url,
@@ -80,7 +80,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/topic/selectAll'
+            ,url:'http://localhost:8080/OnlineLearning/topic/selectAll'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -123,7 +123,7 @@
             form.on('submit(demo2)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/topic/insert',
+                    url:'http://localhost:8080/OnlineLearning/topic/insert',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -190,7 +190,7 @@
             //console.log(obj)
             if(obj.event === 'see'){
                 setCookie("id",data.id,3*24*60);
-                location.href='http://localhost:8080/Onlinelearning/login/see';
+                location.href='http://localhost:8080/OnlineLearning/login/see';
             }
         });
 
@@ -210,7 +210,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/topic/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/topic/selectAll'
             });
         }
 

@@ -4,24 +4,24 @@
   <resultMap id="BaseResultMap" type="com.javen.model.Login" >
     <id      column="id"        property="id"        jdbcType="INTEGER" />
     <result  column="userName"  property="userName"  jdbcType="VARCHAR" />
-    <result  column="password"  property="password"  jdbcType="VARCHAR" />
+    <result  column="passWord"  property="passWord"  jdbcType="VARCHAR" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
-   	id,userName,password
+   	id,userName,passWord
   </sql>
 
     <select id="login" resultType="com.javen.model.Login" parameterType="com.javen.model.Login">
-        select * from t_login where phone = #{phone} and password = #{password} and type =#{type}
+        select * from t_login where phone = #{phone} and passWord = #{passWord} and type =#{type}
     </select>
 
     <select id="StudentLogin" resultType="com.javen.model.Student" parameterType="com.javen.model.Login">
-        select * from t_student where phone = #{phone} and password = #{password}
+        select * from t_student where phone = #{phone} and passWord = #{passWord}
     </select>
 
     <select id="TeacherLogin" resultType="com.javen.model.Teacher" parameterType="com.javen.model.Login">
-        select * from t_teacher where phone = #{phone} and password = #{password}
+        select * from t_teacher where phone = #{phone} and passWord = #{passWord}
     </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -37,14 +37,14 @@
   </delete>
   
    <insert id="insert" parameterType="com.javen.model.Login" >
-    insert into t_login (userName, password)
-    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    insert into t_login (userName, passWord)
+    values (#{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR})
    </insert>
   
    <update id="updateByPrimaryKey"  parameterType="com.javen.model.Login" >
     update t_login
     set userName = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+      passWord = #{passWord,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
 

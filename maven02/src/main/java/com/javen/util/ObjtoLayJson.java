@@ -111,8 +111,8 @@ public class ObjtoLayJson {
 //		User user = new User();
 //		user.setAge(18);
 //		user.setId(1);
-//		user.setPassword("123456789");
-//		String[] colums = {"id","userName","Password","age"};
+//		user.setPassWord("123456789");
+//		String[] colums = {"id","userName","PassWord","age"};
 ////		String  jsonString = toJson(user,colums);
 ////		System.out.println(jsonString);
 //		List<Object> users = new ArrayList<Object>();

@@ -40,7 +40,7 @@ public class TeacherController {
         Integer limitInteger = Integer.valueOf(limitString);
         System.out.println(pageInteger +" "+ limitInteger);
         List<Teacher> listsList = iTeacherService.selectAll(pageInteger,limitInteger);
-        String[] colums = { "id", "name", "phone","password", "className" };
+        String[] colums = { "id", "name", "phone","passWord", "className" };
         String data = ObjtoLayJson.ListtoJson(listsList, colums);
         return data;
     }
@@ -51,14 +51,14 @@ public class TeacherController {
     {
         String nameString = request.getParameter("name");
         String phoneString = request.getParameter("phone");
-        String passwordString = request.getParameter("password");
+        String passWordString = request.getParameter("passWord");
         String classNameString = request.getParameter("className");
-        System.out.println(nameString+" "+phoneString+" "+passwordString+" "+classNameString);
+        System.out.println(nameString+" "+phoneString+" "+passWordString+" "+classNameString);
         System.out.println("-------------------------");
         Teacher teacher = new Teacher();
         teacher.setName(nameString);
         teacher.setPhone(phoneString);
-        teacher.setPassword(passwordString);
+        teacher.setPassWord(passWordString);
         teacher.setClassName(classNameString);
         int count = iTeacherService.insert(teacher);
         String json="";
@@ -95,15 +95,15 @@ public class TeacherController {
         Integer idInteger = Integer.valueOf(idString);
         String nameString = request.getParameter("name");
         String phoneString = request.getParameter("phone");
-        String passwordString = request.getParameter("password");
+        String passWordString = request.getParameter("passWord");
         String classNameString = request.getParameter("className");
-        System.out.println(idInteger+" "+nameString+" "+phoneString+" "+passwordString+" "+classNameString);
+        System.out.println(idInteger+" "+nameString+" "+phoneString+" "+passWordString+" "+classNameString);
         System.out.println("...............");
         Teacher teacher = new Teacher();
         teacher.setId(idInteger);
         teacher.setName(nameString);
         teacher.setPhone(phoneString);
-        teacher.setPassword(passwordString);
+        teacher.setPassWord(passWordString);
         teacher.setClassName(classNameString);
         int count = iTeacherService.update(teacher);
         String json="";
@@ -130,7 +130,7 @@ public class TeacherController {
         for (Teacher teacher : teachers) {
             System.out.println(teacher.toString());
         }
-        String[] colums = { "id", "name", "phone","password", "className" };
+        String[] colums = { "id", "name", "phone","passWord", "className" };
         String data = ObjtoLayJson.ListtoJson(teachers, colums);
         System.out.println(data);
         return data;
@@ -156,7 +156,7 @@ public class TeacherController {
         String classNameString = request.getParameter("className");
         System.out.println("className:"+classNameString);
         List<Teacher> listsList = iTeacherService.GetTeacher(classNameString);
-        String[] colums = { "id", "name", "phone","password", "className" };
+        String[] colums = { "id", "name", "phone","passWord", "className" };
         String json = ObjtoLayJson.ListtoJson(listsList, colums);
         System.out.println(json);
         return json;

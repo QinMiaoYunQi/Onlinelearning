@@ -24,7 +24,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" id="password" name="password" lay-verify="title" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" id="passWord" name="passWord" lay-verify="title" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
 
@@ -50,7 +50,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" id="password" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" id="passWord" name="passWord" lay-verify="passWord" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
 
@@ -113,7 +113,7 @@
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                 ,{field:'userName', title:'用户名', width:120, edit: 'text'}
-                ,{field:'password', title:'密码', width:120, edit: 'text'}
+                ,{field:'passWord', title:'密码', width:120, edit: 'text'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: true
@@ -261,7 +261,7 @@
                 form.val("updata", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
                     "id": data.id // "name": "value"
                     ,"userName":data.userName
-                    ,"password": data.password
+                    ,"passWord": data.passWord
                 });
                 updateById(data);
             }

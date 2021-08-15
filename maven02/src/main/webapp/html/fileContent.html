@@ -12,7 +12,7 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-<form id="addForm" style="display:none" action="http://localhost:8080/Onlinelearning/file/upload.action" method="post" enctype="multipart/form-data">
+<form id="addForm" style="display:none" action="http://localhost:8080/OnlineLearning/file/upload.action" method="post" enctype="multipart/form-data">
     选择文件:<input type="file" name="file" width="120px">
     <div class="layui-form-item">
         <label class="layui-form-label">上传时间</label>
@@ -29,7 +29,7 @@
     <input type="submit" value="上传">
 </form>
 
-<form id="downForm" style="display:none"  lay-filter="updata" action="http://localhost:8080/Onlinelearning/file/down.action" method="get">
+<form id="downForm" style="display:none"  lay-filter="updata" action="http://localhost:8080/OnlineLearning/file/down.action" method="get">
     <input type="text" id="filename" name="filename">
     <input type="submit" value="下载">
 </form>
@@ -59,7 +59,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/file/show?className='+getCookie("className")
+            ,url:'http://localhost:8080/OnlineLearning/file/show?className='+getCookie("className")
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -130,7 +130,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/file/show?className='+getCookie("className")
+                url: 'http://localhost:8080/OnlineLearning/file/show?className='+getCookie("className")
             });
         }
 

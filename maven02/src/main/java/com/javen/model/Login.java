@@ -4,7 +4,7 @@ public class Login {
 	
 	private Integer id;
 	public String phone;
-	private String password;
+	private String passWord;
 	private Integer type;
 
 	public Integer getId() {
@@ -23,12 +23,12 @@ public class Login {
 		this.phone = phone;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPassWord() {
+		return passWord;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 
 	public Integer getType() {
@@ -44,7 +44,7 @@ public class Login {
 		return "Login{" +
 				"id=" + id +
 				", phone='" + phone + '\'' +
-				", password='" + password + '\'' +
+				", passWord='" + passWord + '\'' +
 				", type=" + type +
 				'}';
 	}

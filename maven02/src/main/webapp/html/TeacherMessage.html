@@ -32,7 +32,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" name="passWord" lay-verify="passWord" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -69,7 +69,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" id="password" name="password" lay-verify="password" autocomplete="off" placeholder="密码" class="layui-input">
+            <input type="text" id="passWord" name="passWord" lay-verify="passWord" autocomplete="off" placeholder="密码" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -117,7 +117,7 @@
         var pagecount;
         getPage();
         function getPage(){
-            var url="http://localhost:8080/Onlinelearning/teacher/SelectCount";
+            var url="http://localhost:8080/OnlineLearning/teacher/SelectCount";
             $.ajax({
                 type:"get",
                 url:url,
@@ -135,7 +135,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'http://localhost:8080/Onlinelearning/teacher/selectAll'
+            ,url:'http://localhost:8080/OnlineLearning/teacher/selectAll'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -148,7 +148,7 @@
                 ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                 ,{field:'name', title:'姓名', width:120, edit: 'text'}
                 ,{field:'phone', title:'手机号', width:200, edit: 'text'}
-                ,{field:'password', title:'密码', width:200, edit: 'text'}
+                ,{field:'passWord', title:'密码', width:200, edit: 'text'}
                 ,{field:'className', title:'班级', width:200, edit: 'text', sort: true}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
@@ -172,7 +172,7 @@
             reload: function(){
                 //执行重载
                 table.reload('test', {
-                    url: 'http://localhost:8080/Onlinelearning/teacher/likeByName?phone='+$("#demoReload").val()
+                    url: 'http://localhost:8080/OnlineLearning/teacher/likeByName?phone='+$("#demoReload").val()
                     ,methods:"get"
                     ,page: {
                         curr: 1 //重新从第 1 页开始
@@ -199,7 +199,7 @@
             form.on('submit(demo2)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/teacher/insert',
+                    url:'http://localhost:8080/OnlineLearning/teacher/insert',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -230,7 +230,7 @@
             form.on('submit(demo3)', function(data){
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url:'http://localhost:8080/Onlinelearning/teacher/update',
+                    url:'http://localhost:8080/OnlineLearning/teacher/update',
                     method:'get',
                     data:data.field,
                     dataType:'JSON',
@@ -241,7 +241,7 @@
                             $("#updataForm")[0].reset();
                             form.render();
                             table.reload('test', {
-                                url: 'http://localhost:8080/Onlinelearning/teacher/selectAll'
+                                url: 'http://localhost:8080/OnlineLearning/teacher/selectAll'
                             });
                             getPage();
                         }else{
@@ -307,7 +307,7 @@
                     "id": data.id // "name": "value"
                     ,"name":data.name
                     ,"phone": data.phone
-                    ,"password": data.password
+                    ,"passWord": data.passWord
                     ,"className": data.className
                 });
                 updateById(data);
@@ -329,13 +329,13 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/teacher/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/teacher/selectAll'
             });
         }
 
         function select(){
 
-            var url = "http://localhost:8080/Onlinelearning/teacher/likeByName";
+            var url = "http://localhost:8080/OnlineLearning/teacher/likeByName";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
@@ -354,7 +354,7 @@
 //删除
         function deleteById(index){
 
-            var url = "http://localhost:8080/Onlinelearning/teacher/delete";
+            var url = "http://localhost:8080/OnlineLearning/teacher/delete";
             $.ajax({
                 type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
                 url: url,    //传输地址的URL
@@ -391,7 +391,7 @@
             });
             //刷新页面
             table.reload('test', {
-                url: 'http://localhost:8080/Onlinelearning/teacher/selectAll'
+                url: 'http://localhost:8080/OnlineLearning/teacher/selectAll'
             });
         }
 

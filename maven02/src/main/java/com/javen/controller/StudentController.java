@@ -40,7 +40,7 @@ public class StudentController {
         Integer limitInteger = Integer.valueOf(limitString);
         System.out.println(pageInteger +" "+ limitInteger);
         List<Student> listsList = iStudentService.selectAll(pageInteger,limitInteger);
-        String[] colums = { "id", "name", "phone","password", "className" };
+        String[] colums = { "id", "name", "phone","passWord", "className" };
         String data = ObjtoLayJson.ListtoJson(listsList, colums);
         return data;
     }
@@ -51,14 +51,14 @@ public class StudentController {
     {
         String nameString = request.getParameter("name");
         String phoneString = request.getParameter("phone");
-        String passwordString = request.getParameter("password");
+        String passWordString = request.getParameter("passWord");
         String classNameString = request.getParameter("className");
-        System.out.println(nameString+" "+phoneString+" "+passwordString+" "+classNameString);
+        System.out.println(nameString+" "+phoneString+" "+passWordString+" "+classNameString);
         System.out.println("-------------------------");
         Student student = new Student();
         student.setName(nameString);
         student.setPhone(phoneString);
-        student.setPassword(passwordString);
+        student.setPassWord(passWordString);
         student.setClassName(classNameString);
         int count = iStudentService.insert(student);
         String json="";
@@ -95,15 +95,15 @@ public class StudentController {
         Integer idInteger = Integer.valueOf(idString);
         String nameString = request.getParameter("name");
         String phoneString = request.getParameter("phone");
-        String passwordString = request.getParameter("password");
+        String passWordString = request.getParameter("passWord");
         String classNameString = request.getParameter("className");
-        System.out.println(idInteger+" "+nameString+" "+phoneString+" "+passwordString+" "+classNameString);
+        System.out.println(idInteger+" "+nameString+" "+phoneString+" "+passWordString+" "+classNameString);
         System.out.println("...............");
         Student student = new Student();
         student.setId(idInteger);
         student.setName(nameString);
         student.setPhone(phoneString);
-        student.setPassword(passwordString);
+        student.setPassWord(passWordString);
         student.setClassName(classNameString);
         int count = iStudentService.update(student);
         String json="";
@@ -130,7 +130,7 @@ public class StudentController {
         for (Student student : students) {
             System.out.println(student.toString());
         }
-        String[] colums = { "id", "name", "phone","password", "className" };
+        String[] colums = { "id", "name", "phone","passWord", "className" };
         String data = ObjtoLayJson.ListtoJson(students, colums);
         System.out.println(data);
         return data;

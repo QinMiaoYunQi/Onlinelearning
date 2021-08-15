@@ -13,7 +13,7 @@
     </select>
 
     <insert id="insert" parameterType="com.javen.model.Teacher">
-        insert into t_teacher (name,phone,password,className) values (#{name},#{phone},#{password},#{className})
+        insert into t_teacher (name,phone,passWord,className) values (#{name},#{phone},#{passWord},#{className})
     </insert>
 
     <delete id="delete" parameterType="java.lang.Integer">
@@ -21,7 +21,7 @@
     </delete>
 
     <update id="update" parameterType="com.javen.model.Teacher">
-        update t_teacher set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
+        update t_teacher set name = #{name},phone = #{phone},passWord = #{passWord},className = #{className} where id = #{id}
     </update>
 
     <select id="likeByName" resultType="com.javen.model.Teacher" parameterType="java.lang.String">

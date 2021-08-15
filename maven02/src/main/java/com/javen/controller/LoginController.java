@@ -91,13 +91,13 @@ public class LoginController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(HttpServletRequest request, HttpServletResponse response){
     	String phoneString = request.getParameter("phone");
-    	String passwordString = request.getParameter("password");
+    	String passWordString = request.getParameter("passWord");
     	String typeString=request.getParameter("type");
     	Integer typeInt=Integer.valueOf(typeString);
-		System.out.println(phoneString + " " + passwordString+" "+typeString+" "+typeInt);
+		System.out.println(phoneString + " " + passWordString+" "+typeString+" "+typeInt);
 		Login aaa=new Login();
 		aaa.setPhone(phoneString);
-		aaa.setPassword(passwordString);
+		aaa.setPassWord(passWordString);
 		aaa.setType(typeInt);
 		if(typeInt==2)
 		{
@@ -144,7 +144,7 @@ public class LoginController {
     	Integer idInteger = Integer.valueOf(idString);
     	Login login = loginService.selectByPrimaryKey(idInteger);
     	System.out.println(login.toString());
-    	String[] colums = {"id","userName","password"};
+    	String[] colums = {"id","userName","passWord"};
     	String data = ObjtoLayJson.toJson(login, colums);
     	System.out.println(data);
         return data;
@@ -165,10 +165,10 @@ public class LoginController {
     public String insert(HttpServletRequest request) {
     	//插入数据库
     	String usernameString = request.getParameter("userName");
-    	String passwordString = request.getParameter("password");
+    	String passWordString = request.getParameter("passWord");
     	
     	Login login = new Login();
-    	login.setPassword(passwordString);
+    	login.setPassWord(passWordString);
     	login.setUserName(usernameString);
     	
     	loginService.insert(login);
@@ -184,12 +184,12 @@ public class LoginController {
     	//插入数据库
     	String idString = request.getParameter("id");
     	String usernameString = request.getParameter("userName");
-    	String passwordString = request.getParameter("password");
+    	String passWordString = request.getParameter("passWord");
     	Integer idInteger = Integer.valueOf(idString);
     	
     	Login login = new Login();
     	login.setId(idInteger);
-    	login.setPassword(passwordString);
+    	login.setPassWord(passWordString);
     	login.setUserName(usernameString);
     	
     	loginService.updateByPrimaryKey(login);
@@ -222,7 +222,7 @@ public class LoginController {
 		Integer limitInteger = Integer.valueOf(limitString);
 		System.out.println(pageString + limitString);
 		List<Login> listsList = loginService.selectAll(pageInteger,limitInteger);
-		String[] colums = { "id", "userName", "password"};
+		String[] colums = { "id", "userName", "passWord"};
 		String data = ObjtoLayJson.ListtoJson(listsList, colums);
 		return data;
     }*/
