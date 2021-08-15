@@ -6,23 +6,23 @@
     <select id="selectAll" resultType="com.javen.model.ClassXX" parameterType="java.lang.Integer">
         select
             *
-        from class
+        from t_class
         limit #{param1},#{param2}
     </select>
     <select id="selectById" resultType="com.javen.model.ClassXX" parameterType="int">
-        select * from class where id = #{id}
+        select * from t_class where id = #{id}
     </select>
     <delete id="delete" parameterType="java.lang.Integer">
-        delete from class where id = #{id}
+        delete from t_class where id = #{id}
     </delete>
     <insert id="insert" parameterType="com.javen.model.ClassXX">
-        insert into class (className,foundTime,teacherName) values (#{className},#{foundTime},#{teacherName})
+        insert into t_class (className,foundTime,teacherName) values (#{className},#{foundTime},#{teacherName})
     </insert>
     <update id="update" parameterType="com.javen.model.ClassXX">
-        update class set className = #{className},foundTime = #{foundTime},teacherName = #{teacherName} where id = #{id}
+        update t_class set className = #{className},foundTime = #{foundTime},teacherName = #{teacherName} where id = #{id}
     </update>
     <select id="SelectCount"  resultType="java.lang.Integer" >
-        SELECT count(*) FROM class;
+        SELECT count(*) FROM t_class;
     </select>
 
 

@@ -3,15 +3,15 @@
 
 <mapper namespace="com.javen.dao.CorrectDao" >
     <select id="SelectCount"  resultType="java.lang.Integer" >
-        SELECT count(*) FROM point;
+        SELECT count(*) FROM t_point;
     </select>
 
     <select id="selectAll" resultType="com.javen.model.Correct" parameterType="java.util.Map">
-        select * from point where workName=#{title}
+        select * from t_point where workName=#{title}
         limit #{start},#{limit}
     </select>
 
     <update id="update" parameterType="com.javen.model.Correct">
-        update point set point = #{point} where id = #{id}
+        update t_point set point = #{point} where id = #{id}
     </update>
 </mapper>

@@ -4,42 +4,42 @@
 <mapper namespace="com.javen.dao.TeacherDao" >
 
     <select id="SelectCount"  resultType="java.lang.Integer" >
-        SELECT count(*) FROM teacher;
+        SELECT count(*) FROM t_teacher;
     </select>
 
     <select id="selectAll" resultType="com.javen.model.Teacher" parameterType="java.lang.Integer">
-        select * from teacher
+        select * from t_teacher
         limit #{param1},#{param2}
     </select>
 
     <insert id="insert" parameterType="com.javen.model.Teacher">
-        insert into teacher (name,phone,password,className) values (#{name},#{phone},#{password},#{className})
+        insert into t_teacher (name,phone,password,className) values (#{name},#{phone},#{password},#{className})
     </insert>
 
     <delete id="delete" parameterType="java.lang.Integer">
-        delete from teacher where id = #{id}
+        delete from t_teacher where id = #{id}
     </delete>
 
     <update id="update" parameterType="com.javen.model.Teacher">
-        update teacher set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
+        update t_teacher set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
     </update>
 
     <select id="likeByName" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
-        select * from teacher where phone like '%${value}%'
+        select * from t_teacher where phone like '%${value}%'
     </select>
 
     <select id="GetTeacher" resultType="com.javen.model.Teacher" parameterType="java.lang.String">
         select
             *
-        from teacher
+        from t_teacher
         where className = #{className}
     </select>
 
     <select id="SelectNullClass" resultType="java.lang.Integer" parameterType="java.lang.String">
-        select count(*) from teacher where className = #{className}
+        select count(*) from t_teacher where className = #{className}
     </select>
 
     <update id="updateClass" parameterType="com.javen.model.Teacher">
-        update teacher set className = #{className} where name = #{name}
+        update t_teacher set className = #{className} where name = #{name}
     </update>
 </mapper>

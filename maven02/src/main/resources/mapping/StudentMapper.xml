@@ -4,27 +4,27 @@
 <mapper namespace="com.javen.dao.StudentDao" >
 
     <select id="GetCountStudent" resultType="java.lang.Integer">
-        select count(*) from student;
+        select count(*) from t_student;
     </select>
 
     <select id="selectAll" resultType="com.javen.model.Student" parameterType="java.lang.Integer">
-        select * from student
+        select * from t_student
         limit #{param1},#{param2}
     </select>
 
     <insert id="insert" parameterType="com.javen.model.Student">
-        insert into student (name,phone,password,className) values (#{name},#{phone},#{password},#{className})
+        insert into t_student (name,phone,password,className) values (#{name},#{phone},#{password},#{className})
     </insert>
 
     <delete id="delete" parameterType="java.lang.Integer">
-        delete from student where id = #{id}
+        delete from t_student where id = #{id}
     </delete>
 
     <update id="update" parameterType="com.javen.model.Student">
-        update student set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
+        update t_student set name = #{name},phone = #{phone},password = #{password},className = #{className} where id = #{id}
     </update>
 
     <select id="likeByName" resultType="com.javen.model.Student" parameterType="java.lang.String">
-        select * from student where phone like '%${value}%'
+        select * from t_student where phone like '%${value}%'
     </select>
 </mapper>

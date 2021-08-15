@@ -3,28 +3,28 @@
 
 <mapper namespace="com.javen.dao.WorkDao" >
     <select id="SelectCount"  resultType="java.lang.Integer" >
-        SELECT count(*) FROM homework;
+        SELECT count(*) FROM t_homework;
     </select>
 
     <select id="selectAll" resultType="com.javen.model.Work" parameterType="java.lang.Integer">
-        select * from homework
+        select * from t_homework
         limit #{param1},#{param2}
     </select>
 
     <select id="selectClass" resultType="com.javen.model.Work" parameterType="java.util.Map">
-        select * from homework where className=#{title}
+        select * from t_homework where className=#{title}
         limit #{start},#{limit}
     </select>
 
     <select id="SelectCountClass"  resultType="java.lang.Integer" parameterType="com.javen.model.Work">
-        SELECT count(*) FROM homework where className=#{className};
+        SELECT count(*) FROM t_homework where className=#{className};
     </select>
 
     <insert id="insert" parameterType="com.javen.model.Correct">
-        insert into point (workName,studentName,content,point) values (#{workName},#{studentName},#{content},#{point})
+        insert into t_point (workName,studentName,content,point) values (#{workName},#{studentName},#{content},#{point})
     </insert>
 
     <insert id="MakeWork" parameterType="com.javen.model.Work">
-        insert into homework (name,className,data) values (#{name},#{className},#{data})
+        insert into t_homework (name,className,data) values (#{name},#{className},#{data})
     </insert>
 </mapper>

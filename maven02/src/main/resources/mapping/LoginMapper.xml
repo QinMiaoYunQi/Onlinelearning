@@ -13,47 +13,47 @@
   </sql>
 
     <select id="login" resultType="com.javen.model.Login" parameterType="com.javen.model.Login">
-        select * from login where phone = #{phone} and password = #{password} and type =#{type}
+        select * from t_login where phone = #{phone} and password = #{password} and type =#{type}
     </select>
 
     <select id="StudentLogin" resultType="com.javen.model.Student" parameterType="com.javen.model.Login">
-        select * from student where phone = #{phone} and password = #{password}
+        select * from t_student where phone = #{phone} and password = #{password}
     </select>
 
     <select id="TeacherLogin" resultType="com.javen.model.Teacher" parameterType="com.javen.model.Login">
-        select * from teacher where phone = #{phone} and password = #{password}
+        select * from t_teacher where phone = #{phone} and password = #{password}
     </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select 
     <include refid="Base_Column_List" />
-    from login
+    from t_login
     where id = #{id,jdbcType=INTEGER}
   </select>
 
    <delete id="deleteByPrimaryKey"  parameterType="java.lang.Integer">
-    delete from login
+    delete from t_login
     where id = #{id,jdbcType=INTEGER}
   </delete>
   
    <insert id="insert" parameterType="com.javen.model.Login" >
-    insert into login (userName, password)
+    insert into t_login (userName, password)
     values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
    </insert>
   
    <update id="updateByPrimaryKey"  parameterType="com.javen.model.Login" >
-    update login
+    update t_login
     set userName = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR}
       where id = #{id,jdbcType=INTEGER}
   </update>
 
     <select id="SelectCount"  resultType="java.lang.Integer" >
-         SELECT count(*) FROM login;
+         SELECT count(*) FROM t_login;
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap"  parameterType="java.lang.Integer">
-        select * from login limit #{param1},#{param2}
+        select * from t_login limit #{param1},#{param2}
     </select>
 
 

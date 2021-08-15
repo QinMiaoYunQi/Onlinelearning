@@ -4,28 +4,28 @@
 <mapper namespace="com.javen.dao.LeaveDao" >
 
     <select id="SelectCount"  resultType="java.lang.Integer" >
-        SELECT count(*) FROM holiday;
+        SELECT count(*) FROM t_holiday;
     </select>
 
     <select id="selectAll" resultType="com.javen.model.Leave" parameterType="java.lang.Integer">
-        select * from holiday
+        select * from t_holiday
         limit #{param1},#{param2}
     </select>
 
     <select id="selectLimit" resultType="com.javen.model.Leave" parameterType="com.javen.model.Leave">
-        select * from holiday where result=#{result}
+        select * from t_holiday where result=#{result}
     </select>
 
     <update id="update" parameterType="com.javen.model.Leave">
-        update holiday set result = #{result} where id = #{id}
+        update t_holiday set result = #{result} where id = #{id}
     </update>
 
     <select id="selectPhone" resultType="com.javen.model.Leave" parameterType="com.javen.model.Leave">
-        select * from holiday where phone=#{phone}
+        select * from t_holiday where phone=#{phone}
     </select>
 
     <insert id="insert" parameterType="com.javen.model.Leave">
-        insert into holiday (name,phone,data,reason,result) values (#{name},#{phone},#{data},#{reason},#{result})
+        insert into t_holiday (name,phone,data,reason,result) values (#{name},#{phone},#{data},#{reason},#{result})
     </insert>
 
     <!--

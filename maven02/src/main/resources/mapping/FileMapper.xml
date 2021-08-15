@@ -4,15 +4,15 @@
 
 
     <insert id="insert" parameterType="com.javen.model.File" >
-        insert into file (fileName,time,className) values (#{fileName},#{time},#{className})
+        insert into t_file (fileName,time,className) values (#{fileName},#{time},#{className})
    </insert>
 
     <select id="show" resultType="com.javen.model.File" parameterType="java.lang.String">
-        select * from file where className=#{className};
+        select * from t_file where className=#{className};
     </select>
 
     <select id="likeByFileName" resultType="com.javen.model.File" parameterType="java.lang.String">
-        select * from file where fileName like '%${value}%'
+        select * from t_file where fileName like '%${value}%'
     </select>
 
 </mapper>
